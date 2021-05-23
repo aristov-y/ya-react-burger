@@ -69,7 +69,7 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
           </div>
         ) }
       </div>
-      <div className={ 'mt-10' }>
+      <div className={ classnames('mt-10', styles['burger-constructor-checkout']) }>
         <span className="text text_type_digits-medium mr-10">
           { price }
           <CurrencyIcon type={ 'primary' }/>

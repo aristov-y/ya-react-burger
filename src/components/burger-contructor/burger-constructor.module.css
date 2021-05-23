@@ -35,3 +35,12 @@
 :global(.constructor-element__text) {
     flex: 1;
 }
+
+.burger-constructor-checkout {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.burger-constructor-checkout > :global(.text) > svg {
+    margin-left: 10px;
+}
