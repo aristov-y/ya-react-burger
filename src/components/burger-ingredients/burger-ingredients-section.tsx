@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useCallback } from 'react';
 import classnames from 'classnames';
 import { Ingredient } from '../../utils/ingredients';
 import BurgerIngredient from '../burger-ingredient';
@@ -15,7 +15,13 @@ interface OwnProps {
 type Props = OwnProps;
 
 const BurgerIngredientsSection: FunctionComponent<Props> = ({ title, items, itemsClassName, titleRef }) => {
-  const { addIngredient } = useConstructorHooks().burgerConstructor;
+  const { ingredients, addIngredient } = useConstructorHooks().burgerConstructor;
+  const getCount = useCallback((id: string) => {
+    if (ingredients) {
+      return ingredients.filter(e => e._id === id).length;
+    }
+    return 0;
+  }, [ingredients])
   return (
     <>
       <div ref={titleRef}>
@@ -33,6 +39,7 @@ const BurgerIngredientsSection: FunctionComponent<Props> = ({ title, items, item
                 img={e.image_large}
                 price={e.price}
                 onClick={() => addIngredient && addIngredient(e)}
+                count={getCount(e._id)}
               />
             )
           })

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import styles from './burger-ingredient.module.css'
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import classnames from 'classnames';
 
 interface OwnProps {
@@ -13,7 +13,7 @@ interface OwnProps {
 
 type Props = OwnProps;
 
-const BurgerIngredient: FunctionComponent<Props> = ({ price, name, img, onClick}) => {
+const BurgerIngredient: FunctionComponent<Props> = ({ price, name, img, onClick, count= 0}) => {
   return (
     <div className={classnames(styles['burger-ingredient'], 'mt-2')} onClick={onClick}>
       <img className={'ml-4 mr-4'} alt={name} src={img} />
@@ -24,6 +24,7 @@ const BurgerIngredient: FunctionComponent<Props> = ({ price, name, img, onClick}
         </span>
       </div>
       <span className={'text text_type_main-default mt-1'}>{name}</span>
+      { (count > 0) && <Counter count={count} size="default" /> }
     </div>
   );
 };

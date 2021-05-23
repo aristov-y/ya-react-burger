@@ -4,6 +4,7 @@
     width: 272px;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .burger-ingredient-price-text {
