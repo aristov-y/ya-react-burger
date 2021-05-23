@@ -17,13 +17,13 @@ const BurgerIngredient: FunctionComponent<Props> = ({ price, name, img, onClick}
   return (
     <div className={classnames(styles['burger-ingredient'], 'mt-2')} onClick={onClick}>
       <img className={'ml-4 mr-4'} alt={name} src={img} />
-      <div>
-        <span className={'text_type_digits-default'}>
+      <div className="mt-1">
+        <span className={classnames(styles['burger-ingredient-price-text'],'text_type_digits-default')}>
           {price}
           <CurrencyIcon type={'primary'} />
         </span>
       </div>
-      <span>{name}</span>
+      <span className={'text text_type_main-default mt-1'}>{name}</span>
     </div>
   );
 };
