@@ -1,0 +1,7 @@
+.burger-ingredient {
+    background-color: rgba(255, 255, 255, .2);
+    cursor: pointer;
+    width: 272px;
+    display: flex;
+    flex-direction: column;
+}
