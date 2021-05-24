@@ -40,9 +40,21 @@ const BurgerIngredients: FunctionComponent<Props> = (props) => {
     <div className={classnames(props.className, styles['burger-ingredients'], 'mt-10')}>
       <span className='text text_type_main-medium'>Соберите бургер</span>
       <div style={{ display: 'flex' }} className="mt-5">
-        <Tab active={tabValue === 'Булки'} value={'Булки'} onClick={onTabClick} children={"Булки"} />
-        <Tab active={tabValue === 'Соусы'} value={'Соусы'} onClick={onTabClick} children={"Соусы"} />
-        <Tab active={tabValue === 'Начинки'} value={'Начинки'} onClick={onTabClick} children={"Начинки"} />
+        <Tab
+          active={tabValue === 'Булки'}
+          value={'Булки'}
+          onClick={onTabClick}
+          children={"Булки"} />
+        <Tab
+          active={tabValue === 'Соусы'}
+          value={'Соусы'}
+          onClick={onTabClick}
+          children={"Соусы"} />
+        <Tab
+          active={tabValue === 'Начинки'}
+          value={'Начинки'}
+          onClick={onTabClick}
+          children={"Начинки"} />
       </div>
       <div className={classnames('mt-10', styles['burger-ingredients-scroller'])}>
         <BurgerIngredientsSection

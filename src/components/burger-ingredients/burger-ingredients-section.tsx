@@ -14,7 +14,12 @@ interface OwnProps {
 
 type Props = OwnProps;
 
-const BurgerIngredientsSection: FunctionComponent<Props> = ({ title, items, itemsClassName, titleRef }) => {
+const BurgerIngredientsSection: FunctionComponent<Props> = ({
+  title,
+  items,
+  itemsClassName,
+  titleRef
+}) => {
   const { ingredients, addIngredient } = useConstructorHooks().burgerConstructor;
   const getCount = useCallback((id: string) => {
     if (ingredients) {
@@ -24,22 +29,22 @@ const BurgerIngredientsSection: FunctionComponent<Props> = ({ title, items, item
   }, [ingredients])
   return (
     <>
-      <div ref={titleRef}>
+      <div ref={ titleRef }>
           <span className="text text_type_main-medium">
             { title }
           </span>
       </div>
-      <div className={classnames('mt-10 pt-4 pl-4', itemsClassName)}>
+      <div className={ classnames('mt-10 pt-4 pl-4', itemsClassName) }>
         {
           items.map(e => {
             return (
               <BurgerIngredient
-                key={e._id}
-                name={e.name}
-                img={e.image_large}
-                price={e.price}
-                onClick={() => addIngredient && addIngredient(e)}
-                count={getCount(e._id)}
+                key={ e._id }
+                name={ e.name }
+                img={ e.image_large }
+                price={ e.price }
+                onClick={ () => addIngredient && addIngredient(e) }
+                count={ getCount(e._id) }
               />
             )
           })

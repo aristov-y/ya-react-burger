@@ -20,7 +20,9 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
   const [price, setPrice] = useState(0);
   useEffect(() => {
     setBun(items?.filter(e => e.type === 'bun')[0]);
-    setPrice(items!.reduce((prev, curr) => prev + (curr.type === 'bun' ? 2 * curr.price : curr.price), 0));
+    setPrice(items!.reduce(
+      (prev, curr) => prev + (curr.type === 'bun' ? 2 * curr.price : curr.price), 0)
+    );
   }, [items]);
   return (
     <div className={ 'mt-25' } style={ { flex: '1', maxWidth: '592px' } }>
@@ -44,7 +46,7 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
                     classnames(
                       styles['burger-constructor-item'],
                       styles['burger-constructor-item__draggable']
-                    )}
+                    ) }
                 >
                   <DragIcon type={ 'primary' }/>
                   <ConstructorElement
