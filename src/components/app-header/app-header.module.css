@@ -1,0 +1,17 @@
+.app-header {
+    height: 88px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+.app-header > .app-header-nav {
+    order: -1;
+}
+
+.app-header > .app-header-nav,
+.app-header-profile-wrapper,
+.app-header > svg {
+    flex: 1;
+}

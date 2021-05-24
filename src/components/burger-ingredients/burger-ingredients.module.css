@@ -1,0 +1,27 @@
+.burger-ingredients {
+    flex: 1;
+    max-width: 600px;
+}
+
+.burger-ingredients-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.burger-ingredients-scroller {
+    overflow-y: auto;
+    height: calc(100vh - 310px);
+}
+
+.burger-ingredients-scroller::-webkit-scrollbar {
+    width: 12px;
+}
+.burger-ingredients-scroller::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+.burger-ingredients-scroller::-webkit-scrollbar-thumb {
+    background: #8585AD;
+    border: 3px solid #2F2F37;
+    border-radius: 6px;
+}

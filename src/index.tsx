@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './components/app/App';
 import reportWebVitals from './reportWebVitals';
+import { ConstructorProvider } from './state/providers/constructor-provider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ConstructorProvider>
+      <App />
+    </ConstructorProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

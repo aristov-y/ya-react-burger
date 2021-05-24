@@ -1,0 +1,15 @@
+.burger-ingredient {
+    cursor: pointer;
+    width: 272px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.burger-ingredient-price-text {
+    display: inline-flex;
+}
+
+.burger-ingredient-price-text > svg {
+    margin-left: 9px;
+}
