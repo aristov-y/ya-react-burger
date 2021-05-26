@@ -1,9 +1,9 @@
 import classnames from 'classnames';
-import React, { FunctionComponent, useRef, useState } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import ingredients from '../../utils/ingredients';
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientsSection from './burger-ingredients-section';
+import { useConstructorHooks } from '../../state/providers/constructor-provider';
 
 
 interface OwnProps {
@@ -13,10 +13,14 @@ interface OwnProps {
 type Props = OwnProps;
 
 const BurgerIngredients: FunctionComponent<Props> = (props) => {
+  const { ingredients = [], loadBurgerIngredients } = useConstructorHooks().burgerIngredients;
   const bunRef = useRef<HTMLDivElement>(null);
   const sauceRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
   const [tabValue, setTabValue] = useState<string>('Булки');
+  useEffect(() => {
+    loadBurgerIngredients && loadBurgerIngredients();
+  }, [loadBurgerIngredients])
   const onTabClick = (id: string) => {
     if (id === 'Булки') {
       bunRef.current?.scrollIntoView({

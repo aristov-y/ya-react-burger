@@ -1,4 +1,4 @@
-import { ActionType } from '../actions/actions';
+import { ActionType } from '../actions/constructorActions';
 import { Ingredient } from '../../utils/ingredients';
 
 function constructorReducer(state: Ingredient[] = [], action: ActionType) {
