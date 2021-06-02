@@ -26,7 +26,7 @@ const BurgerIngredientsSection: FunctionComponent<Props> = ({
       return ingredients.filter(e => e._id === id).length;
     }
     return 0;
-  }, [ingredients])
+  }, [ingredients]);
   return (
     <>
       <div ref={ titleRef }>
@@ -40,9 +40,7 @@ const BurgerIngredientsSection: FunctionComponent<Props> = ({
             return (
               <BurgerIngredient
                 key={ e._id }
-                name={ e.name }
-                img={ e.image_large }
-                price={ e.price }
+                item={e}
                 onClick={ () => addIngredient && addIngredient(e) }
                 count={ getCount(e._id) }
               />

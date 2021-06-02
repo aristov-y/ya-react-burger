@@ -8,11 +8,11 @@ function AppHeader() {
     <header className={styles['app-header']}>
       <Logo />
       <nav className={styles['app-header-nav']}>
-        <HeaderButton text="Конструктор" type="BURGER" />
-        <HeaderButton text="Лента заказов" type="LIST" />
+        <HeaderButton text="Конструктор" type="BURGER" active />
+        <HeaderButton text="Лента заказов" type="LIST" active={false} />
       </nav>
       <div className={styles['app-header-profile-wrapper']}>
-        <HeaderButton text="Личный кабинет" type="PROFILE" />
+        <HeaderButton text="Личный кабинет" type="PROFILE" active={false} />
       </div>
     </header>
   )

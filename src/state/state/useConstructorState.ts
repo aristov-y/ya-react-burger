@@ -6,13 +6,15 @@ function useConstructorState() {
   const [ingredients, dispatchIngredients] =useReducer(ConstructorReducer, [])
   const {
     addIngredient,
-    removeIngredient
+    removeIngredient,
+    clearIngredients
   } = useMemo(() => constructorActionsCreator(dispatchIngredients), [dispatchIngredients]);
 
   return {
     ingredients,
     addIngredient,
-    removeIngredient
+    removeIngredient,
+    clearIngredients
   }
 }
 

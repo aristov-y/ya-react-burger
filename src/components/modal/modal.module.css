@@ -1,0 +1,25 @@
+.modal {
+    margin: auto;
+    width: 720px;
+    min-height: 150px;
+    background-color: #1C1C21;
+    border: 1px solid rgba(76, 76, 255, 0.2);
+    box-sizing: border-box;
+    box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
+    border-radius: 40px;
+}
+
+.modal__header {
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal__header > svg {
+    cursor: pointer;
+}
+
+.modal__close-button {
+    position: absolute;
+}

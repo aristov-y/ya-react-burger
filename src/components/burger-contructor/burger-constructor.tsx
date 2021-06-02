@@ -5,9 +5,10 @@ import {
   ConstructorElement,
   CurrencyIcon, DragIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import classnames from 'classnames';
 import { useConstructorHooks } from '../../state/providers/constructor-provider';
 import styles from './burger-constructor.module.css'
-import classnames from 'classnames';
+import OrderDetails from '../order-details/order-details';
 
 interface OwnProps {
 }
@@ -15,7 +16,10 @@ interface OwnProps {
 type Props = OwnProps;
 
 const BurgerConstructor: FunctionComponent<Props> = () => {
-  const { ingredients: items, removeIngredient } = useConstructorHooks().burgerConstructor;
+  const [showOrder, setShowOrder] = useState(false);
+  const {
+    ingredients: items, removeIngredient, clearIngredients
+  } = useConstructorHooks().burgerConstructor;
   const [bun, setBun] = useState<Ingredient>();
   const [price, setPrice] = useState(0);
   useEffect(() => {
@@ -24,6 +28,15 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
       (prev, curr) => prev + (curr.type === 'bun' ? 2 * curr.price : curr.price), 0)
     );
   }, [items]);
+  const onCloseOrder = () => {
+    setShowOrder(false);
+    clearIngredients && clearIngredients();
+  };
+  const onOrderClick = () => {
+    if (items && items.length > 0) {
+      setShowOrder(true);
+    }
+  }
   return (
     <div className={ 'mt-25' } style={ { flex: '1', maxWidth: '592px' } }>
       <div style={ { display: 'flex', flexDirection: 'column', gap: '10px' } }>
@@ -79,10 +92,12 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
         <Button
           type="primary"
           size="medium"
+          onClick={onOrderClick}
         >
           Оформить заказ
         </Button>
       </div>
+      { showOrder && <OrderDetails onClose={onCloseOrder} /> }
     </div>
   )
 }
