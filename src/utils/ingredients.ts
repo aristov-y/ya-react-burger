@@ -14,7 +14,7 @@ interface Ingredient {
 }
 
 function fetchIngredients(): Promise<Ingredient[]> {
-  return window.fetch('https://norma.nomoreparties.space/api/ingredients')
+  return window.fetch(`${process.env.REACT_APP_API_DOMAIN}/api/ingredients`)
     .then(e => e.json())
     .then(e => e.data);
 }
