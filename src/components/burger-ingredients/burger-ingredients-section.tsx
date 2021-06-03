@@ -2,14 +2,15 @@ import React, { FunctionComponent, useCallback } from 'react';
 import classnames from 'classnames';
 import { Ingredient } from '../../utils/ingredients';
 import BurgerIngredient from '../burger-ingredient';
-import { useConstructorHooks } from '../../state/providers/constructor-provider';
 
 interface OwnProps {
   titleClassName?: string;
   itemsClassName?: string;
   titleRef?: any;
   title: string;
-  items: Ingredient[]
+  items: Ingredient[],
+  addIngredient: (val: Ingredient) => void,
+  constructorItems: Ingredient[]
 }
 
 type Props = OwnProps;
@@ -18,15 +19,16 @@ const BurgerIngredientsSection: FunctionComponent<Props> = ({
   title,
   items,
   itemsClassName,
-  titleRef
+  titleRef,
+  addIngredient,
+  constructorItems
 }) => {
-  const { ingredients, addIngredient } = useConstructorHooks().burgerConstructor;
   const getCount = useCallback((id: string) => {
-    if (ingredients) {
-      return ingredients.filter(e => e._id === id).length;
+    if (constructorItems) {
+      return constructorItems.filter(e => e._id === id).length;
     }
     return 0;
-  }, [ingredients]);
+  }, [constructorItems]);
   return (
     <>
       <div ref={ titleRef }>

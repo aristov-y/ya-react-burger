@@ -6,20 +6,23 @@ import {
   CurrencyIcon, DragIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import classnames from 'classnames';
-import { useConstructorHooks } from '../../state/providers/constructor-provider';
 import styles from './burger-constructor.module.css'
 import OrderDetails from '../order-details/order-details';
 
 interface OwnProps {
+  items: Ingredient[],
+  removeItem: (id: string) => void;
+  clearItems: () => void;
 }
 
 type Props = OwnProps;
 
-const BurgerConstructor: FunctionComponent<Props> = () => {
+const BurgerConstructor: FunctionComponent<Props> = ({
+  items,
+  removeItem,
+  clearItems
+}) => {
   const [showOrder, setShowOrder] = useState(false);
-  const {
-    ingredients: items, removeIngredient, clearIngredients
-  } = useConstructorHooks().burgerConstructor;
   const [bun, setBun] = useState<Ingredient>();
   const [price, setPrice] = useState(0);
   useEffect(() => {
@@ -30,7 +33,7 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
   }, [items]);
   const onCloseOrder = () => {
     setShowOrder(false);
-    clearIngredients && clearIngredients();
+    clearItems();
   };
   const onOrderClick = () => {
     if (items && items.length > 0) {
@@ -67,7 +70,7 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
                     text={ e.name }
                     thumbnail={ e.image }
                     price={ e.price }
-                    handleClose={ () => removeIngredient && removeIngredient(e._id) }
+                    handleClose={ () => removeItem(e._id) }
                   />
                 </div>
               )

@@ -1,26 +1,30 @@
 import classnames from 'classnames';
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, useRef, useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientsSection from './burger-ingredients-section';
-import { useConstructorHooks } from '../../state/providers/constructor-provider';
+import { Ingredient } from '../../utils/ingredients';
 
 
 interface OwnProps {
-  className?: string
+  className?: string,
+  ingredients: Ingredient[],
+  addIngredient: (val: Ingredient) => void;
+  constructorItems: Ingredient[]
 }
 
 type Props = OwnProps;
 
-const BurgerIngredients: FunctionComponent<Props> = (props) => {
-  const { ingredients = [], loadBurgerIngredients } = useConstructorHooks().burgerIngredients;
+const BurgerIngredients: FunctionComponent<Props> = ({
+  className,
+  ingredients,
+  addIngredient,
+  constructorItems
+}) => {
   const bunRef = useRef<HTMLDivElement>(null);
   const sauceRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
   const [tabValue, setTabValue] = useState<string>('Булки');
-  useEffect(() => {
-    loadBurgerIngredients && loadBurgerIngredients();
-  }, [loadBurgerIngredients])
   const onTabClick = (id: string) => {
     if (id === 'Булки') {
       bunRef.current?.scrollIntoView({
@@ -41,7 +45,7 @@ const BurgerIngredients: FunctionComponent<Props> = (props) => {
     setTabValue(id);
   }
   return (
-    <div className={classnames(props.className, styles['burger-ingredients'], 'mt-10')}>
+    <div className={classnames(className, styles['burger-ingredients'], 'mt-10')}>
       <span className='text text_type_main-medium'>Соберите бургер</span>
       <div style={{ display: 'flex' }} className="mt-5">
         <Tab
@@ -66,18 +70,24 @@ const BurgerIngredients: FunctionComponent<Props> = (props) => {
           title="Булки"
           items={ingredients.filter(e=> e.type === 'bun')}
           itemsClassName={styles['burger-ingredients-container']}
+          constructorItems={constructorItems}
+          addIngredient={addIngredient}
         />
         <BurgerIngredientsSection
           titleRef={sauceRef}
           title="Соусы"
           items={ingredients.filter(e=> e.type === 'sauce')}
           itemsClassName={styles['burger-ingredients-container']}
+          constructorItems={constructorItems}
+          addIngredient={addIngredient}
         />
         <BurgerIngredientsSection
           titleRef={mainRef}
           title="Начинки"
           items={ingredients.filter(e=> e.type === 'main')}
           itemsClassName={styles['burger-ingredients-container']}
+          constructorItems={constructorItems}
+          addIngredient={addIngredient}
         />
       </div>
     </div>);
