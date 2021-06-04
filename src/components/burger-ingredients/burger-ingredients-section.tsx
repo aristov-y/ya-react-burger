@@ -10,7 +10,8 @@ interface OwnProps {
   title: string;
   items: Ingredient[],
   addIngredient: (val: Ingredient) => void,
-  constructorItems: Ingredient[]
+  constructorItems: Ingredient[],
+  onShowDetails: (item: Ingredient) => void;
 }
 
 type Props = OwnProps;
@@ -21,7 +22,8 @@ const BurgerIngredientsSection: FunctionComponent<Props> = ({
   itemsClassName,
   titleRef,
   addIngredient,
-  constructorItems
+  constructorItems,
+  onShowDetails
 }) => {
   const getCount = useCallback((id: string) => {
     if (constructorItems) {
@@ -38,13 +40,14 @@ const BurgerIngredientsSection: FunctionComponent<Props> = ({
       </div>
       <div className={ classnames('mt-10 pt-4 pl-4', itemsClassName) }>
         {
-          items.map(e => {
+          items.map(item => {
             return (
               <BurgerIngredient
-                key={ e._id }
-                item={e}
-                onClick={ () => addIngredient && addIngredient(e) }
-                count={ getCount(e._id) }
+                key={ item._id }
+                item={item}
+                onClick={ () => addIngredient && addIngredient(item) }
+                onImageClick={() => onShowDetails(item)}
+                count={ getCount(item._id) }
               />
             )
           })

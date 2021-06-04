@@ -4,6 +4,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientsSection from './burger-ingredients-section';
 import { Ingredient } from '../../utils/ingredients';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 
 
 interface OwnProps {
@@ -24,6 +25,7 @@ const BurgerIngredients: FunctionComponent<Props> = ({
   const bunRef = useRef<HTMLDivElement>(null);
   const sauceRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
+  const [selected, setSelected] = useState<Ingredient | undefined>(undefined);
   const [tabValue, setTabValue] = useState<string>('Булки');
   const onTabClick = (id: string) => {
     if (id === 'Булки') {
@@ -43,6 +45,9 @@ const BurgerIngredients: FunctionComponent<Props> = ({
       });
     }
     setTabValue(id);
+  }
+  const onModalClose = () => {
+    setSelected(undefined);
   }
   return (
     <div className={classnames(className, styles['burger-ingredients'], 'mt-10')}>
@@ -72,6 +77,7 @@ const BurgerIngredients: FunctionComponent<Props> = ({
           itemsClassName={styles['burger-ingredients-container']}
           constructorItems={constructorItems}
           addIngredient={addIngredient}
+          onShowDetails={setSelected}
         />
         <BurgerIngredientsSection
           titleRef={sauceRef}
@@ -80,6 +86,7 @@ const BurgerIngredients: FunctionComponent<Props> = ({
           itemsClassName={styles['burger-ingredients-container']}
           constructorItems={constructorItems}
           addIngredient={addIngredient}
+          onShowDetails={setSelected}
         />
         <BurgerIngredientsSection
           titleRef={mainRef}
@@ -88,8 +95,10 @@ const BurgerIngredients: FunctionComponent<Props> = ({
           itemsClassName={styles['burger-ingredients-container']}
           constructorItems={constructorItems}
           addIngredient={addIngredient}
+          onShowDetails={setSelected}
         />
       </div>
+      { selected && <IngredientDetails onClose={onModalClose} item={selected}/> }
     </div>);
 };
 

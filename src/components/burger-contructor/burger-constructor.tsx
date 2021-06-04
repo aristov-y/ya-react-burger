@@ -33,12 +33,14 @@ const BurgerConstructor: FunctionComponent<Props> = ({
   }, [items]);
   const onCloseOrder = () => {
     setShowOrder(false);
-    clearItems();
+    // Временно скрыто
+    // clearItems();
   };
   const onOrderClick = () => {
-    if (items && items.length > 0) {
+    // временно показ модалки вне условий
+    // if (items && items.length > 0) {
       setShowOrder(true);
-    }
+    // }
   }
   return (
     <div className={ 'mt-25' } style={ { flex: '1', maxWidth: '592px' } }>
