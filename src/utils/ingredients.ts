@@ -15,8 +15,13 @@ interface Ingredient {
 
 function fetchIngredients(): Promise<Ingredient[]> {
   return window.fetch(`${process.env.REACT_APP_API_DOMAIN}/api/ingredients`)
-    .then(e => e.json())
-    .then(e => e.data);
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(response.statusText)
+    })
+    .then(jsonData => jsonData.data);
 }
 
 export type {
