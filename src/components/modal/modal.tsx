@@ -22,7 +22,7 @@ export default function Modal({ children, title, onClose }: React.PropsWithChild
   }, [onClose]);
   return (
     <div className={styles['modal']}>
-      <div className={`${styles['modal__header']} ml-10 mr-10`}>
+      <div className={`${styles['modal__header']} ml-10 mr-10 mt-10`}>
         <span className={`${styles['modal__title']} text text_type_main-medium`}>{title}</span>
         <CloseIcon type={'primary'} onClick={onClose}/>
       </div>
