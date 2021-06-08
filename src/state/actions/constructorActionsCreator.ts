@@ -1,20 +1,25 @@
 import {
   ActionType,
   addIngredient as addIngredientAction,
-  removeIngredient as removeIngredientAction
-} from './actions';
+  removeIngredient as removeIngredientAction,
+  clearIngredients as clearIngredientsAction
+} from './constructorActions';
 import { Ingredient } from '../../utils/ingredients';
 import React from 'react';
 
-export default function actionsCreator(dispatch: React.Dispatch<ActionType>) {
+export default function constructorActionsCreator(dispatch: React.Dispatch<ActionType>) {
   function addIngredient(ingredient: Ingredient) {
     dispatch(addIngredientAction(ingredient));
   }
   function removeIngredient(ingredientId: string) {
     dispatch(removeIngredientAction(ingredientId));
   }
+  function clearIngredients() {
+    dispatch(clearIngredientsAction())
+  }
   return {
     addIngredient,
-    removeIngredient
+    removeIngredient,
+    clearIngredients
   }
 }

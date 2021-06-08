@@ -3,13 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/app/App';
 import reportWebVitals from './reportWebVitals';
-import { ConstructorProvider } from './state/providers/constructor-provider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ConstructorProvider>
-      <App />
-    </ConstructorProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

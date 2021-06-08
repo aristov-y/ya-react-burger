@@ -2,21 +2,27 @@ import React, { FunctionComponent } from 'react';
 import styles from './burger-ingredient.module.css'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import classnames from 'classnames';
+import { Ingredient } from '../../utils/ingredients';
 
 interface OwnProps {
-  img: string;
-  price: number;
-  name: string;
+  item: Ingredient
   count?: number;
   onClick?: () => void;
+  onImageClick?: () => void;
 }
 
 type Props = OwnProps;
 
-const BurgerIngredient: FunctionComponent<Props> = ({ price, name, img, onClick, count = 0 }) => {
+const BurgerIngredient: FunctionComponent<Props> = ({ item, onClick, count = 0, onImageClick }) => {
+  const { price, name, image_large: img } = item;
+  const onImageClickInternal: React.MouseEventHandler = (evt) => {
+    evt.stopPropagation();
+    evt.preventDefault();
+    onImageClick && onImageClick();
+  }
   return (
     <div className={ classnames(styles['burger-ingredient'], 'mt-2') } onClick={ onClick }>
-      <img className={ 'ml-4 mr-4' } alt={ name } src={ img }/>
+      <img className={ 'ml-4 mr-4' } alt={ name } src={ img } onClick={onImageClickInternal}/>
       <div className="mt-1">
         <span
           className={
