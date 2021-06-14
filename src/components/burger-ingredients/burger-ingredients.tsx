@@ -9,18 +9,14 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 
 interface OwnProps {
   className?: string,
-  ingredients: Ingredient[],
-  addIngredient: (val: Ingredient) => void;
-  constructorItems: Ingredient[]
+  ingredients: Ingredient[]
 }
 
 type Props = OwnProps;
 
 const BurgerIngredients: FunctionComponent<Props> = ({
   className,
-  ingredients,
-  addIngredient,
-  constructorItems
+  ingredients
 }) => {
   const bunRef = useRef<HTMLDivElement>(null);
   const sauceRef = useRef<HTMLDivElement>(null);
@@ -75,8 +71,6 @@ const BurgerIngredients: FunctionComponent<Props> = ({
           title="Булки"
           items={ingredients.filter(e=> e.type === 'bun')}
           itemsClassName={styles['burger-ingredients-container']}
-          constructorItems={constructorItems}
-          addIngredient={addIngredient}
           onShowDetails={setSelected}
         />
         <BurgerIngredientsSection
@@ -84,8 +78,6 @@ const BurgerIngredients: FunctionComponent<Props> = ({
           title="Соусы"
           items={ingredients.filter(e=> e.type === 'sauce')}
           itemsClassName={styles['burger-ingredients-container']}
-          constructorItems={constructorItems}
-          addIngredient={addIngredient}
           onShowDetails={setSelected}
         />
         <BurgerIngredientsSection
@@ -93,8 +85,6 @@ const BurgerIngredients: FunctionComponent<Props> = ({
           title="Начинки"
           items={ingredients.filter(e=> e.type === 'main')}
           itemsClassName={styles['burger-ingredients-container']}
-          constructorItems={constructorItems}
-          addIngredient={addIngredient}
           onShowDetails={setSelected}
         />
       </div>

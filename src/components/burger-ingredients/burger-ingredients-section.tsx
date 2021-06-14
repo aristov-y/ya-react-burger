@@ -2,6 +2,7 @@ import React, { FunctionComponent, useCallback } from 'react';
 import classnames from 'classnames';
 import { Ingredient } from '../../utils/ingredients';
 import BurgerIngredient from '../burger-ingredient';
+import { useConstructorStateHook } from '../../state/providers/constructor-provider';
 
 interface OwnProps {
   titleClassName?: string;
@@ -9,8 +10,6 @@ interface OwnProps {
   titleRef?: any;
   title: string;
   items: Ingredient[],
-  addIngredient: (val: Ingredient) => void,
-  constructorItems: Ingredient[],
   onShowDetails: (item: Ingredient) => void;
 }
 
@@ -21,16 +20,18 @@ const BurgerIngredientsSection: FunctionComponent<Props> = ({
   items,
   itemsClassName,
   titleRef,
-  addIngredient,
-  constructorItems,
   onShowDetails
 }) => {
+  const { ingredients: { main, bun }, addIngredient } = useConstructorStateHook();
   const getCount = useCallback((id: string) => {
-    if (constructorItems) {
-      return constructorItems.filter(e => e._id === id).length;
+    if (bun && bun._id === id) {
+      return 1;
+    }
+    if (main) {
+      return main.filter(e => e._id === id).length;
     }
     return 0;
-  }, [constructorItems]);
+  }, [main, bun]);
   return (
     <>
       <div ref={ titleRef }>
@@ -45,7 +46,7 @@ const BurgerIngredientsSection: FunctionComponent<Props> = ({
               <BurgerIngredient
                 key={ item._id }
                 item={item}
-                onClick={ () => addIngredient && addIngredient(item) }
+                onClick={ () => addIngredient(item) }
                 onImageClick={() => onShowDetails(item)}
                 count={ getCount(item._id) }
               />

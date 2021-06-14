@@ -1,9 +1,17 @@
 import { useMemo, useReducer } from 'react';
-import ConstructorReducer from '../reducers/constructor-reducer';
+import constructorReducer from '../reducers/constructor-reducer';
 import constructorActionsCreator from '../actions/constructorActionsCreator';
+import { Ingredient } from '../../utils/ingredients';
+
+interface ConstructorState {
+  main: Ingredient[],
+  bun?: Ingredient
+}
 
 function useConstructorState() {
-  const [ingredients, dispatchIngredients] =useReducer(ConstructorReducer, [])
+  const [ingredients, dispatchIngredients] = useReducer(constructorReducer, {
+    main: []
+  })
   const {
     addIngredient,
     removeIngredient,
@@ -16,6 +24,10 @@ function useConstructorState() {
     removeIngredient,
     clearIngredients
   }
+}
+
+export type {
+  ConstructorState
 }
 
 export default useConstructorState;

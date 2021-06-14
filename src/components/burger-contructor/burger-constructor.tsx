@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Ingredient } from '../../utils/ingredients';
 import {
   Button,
   ConstructorElement,
@@ -8,39 +7,44 @@ import {
 import classnames from 'classnames';
 import styles from './burger-constructor.module.css'
 import OrderDetails from '../order-details/order-details';
+import { useConstructorStateHook } from '../../state/providers/constructor-provider';
 
 interface OwnProps {
-  items: Ingredient[],
-  removeItem: (id: string) => void;
-  clearItems: () => void;
+
 }
 
 type Props = OwnProps;
 
-const BurgerConstructor: FunctionComponent<Props> = ({
-  items,
-  removeItem,
-  clearItems
-}) => {
+const BurgerConstructor: FunctionComponent<Props> = () => {
+  const {
+    ingredients: {
+      main,
+      bun
+    },
+    removeIngredient,
+    clearIngredients
+  } = useConstructorStateHook();
+  const [orderNum, setOrderNum] = useState(0);
   const [showOrder, setShowOrder] = useState(false);
-  const [bun, setBun] = useState<Ingredient>();
   const [price, setPrice] = useState(0);
   useEffect(() => {
-    setBun(items?.filter(e => e.type === 'bun')[0]);
-    setPrice(items!.reduce(
-      (prev, curr) => prev + (curr.type === 'bun' ? 2 * curr.price : curr.price), 0)
-    );
-  }, [items]);
+    const newTotal = main.reduce(
+      (prev, curr) => prev + curr.price, 0);
+    if (bun) {
+      setPrice(newTotal + 2 * bun.price);
+    } else {
+      setPrice(newTotal);
+    }
+
+  }, [main, bun]);
   const onCloseOrder = () => {
     setShowOrder(false);
-    // Временно скрыто
-    // clearItems();
+    clearIngredients();
   };
   const onOrderClick = () => {
-    // временно показ модалки вне условий
-    // if (items && items.length > 0) {
+    if (main.length && bun) {
       setShowOrder(true);
-    // }
+    }
   }
   return (
     <div className={ 'mt-25' } style={ { flex: '1', maxWidth: '592px' } }>
@@ -57,7 +61,7 @@ const BurgerConstructor: FunctionComponent<Props> = ({
         ) }
         <div className={ styles['burger-constructor-scroller'] }>
           {
-            items!.filter(e => e.type !== 'bun').map((e, idx) => {
+            main.map((e, idx) => {
               return (
                 <div
                   className={
@@ -72,7 +76,7 @@ const BurgerConstructor: FunctionComponent<Props> = ({
                     text={ e.name }
                     thumbnail={ e.image }
                     price={ e.price }
-                    handleClose={ () => removeItem(e._id) }
+                    handleClose={ () => removeIngredient(e._id) }
                   />
                 </div>
               )
@@ -102,7 +106,7 @@ const BurgerConstructor: FunctionComponent<Props> = ({
           Оформить заказ
         </Button>
       </div>
-      { showOrder && <OrderDetails onClose={onCloseOrder} /> }
+      { showOrder && <OrderDetails onClose={onCloseOrder} orderNum={orderNum} /> }
     </div>
   )
 }

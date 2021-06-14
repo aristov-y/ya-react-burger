@@ -1,16 +1,19 @@
 import { ActionType } from '../actions/constructorActions';
-import { Ingredient } from '../../utils/ingredients';
 import addIngredient from '../../utils/add-ingredient';
 import removeIngredient from '../../utils/remove-ingredient';
+import { ConstructorState } from '../state/useConstructorState';
 
-function constructorReducer(state: Ingredient[] = [], action: ActionType = {}) {
+function constructorReducer(state: ConstructorState, action: ActionType = {}): ConstructorState {
   switch (action.type) {
     case 'ADD_INGREDIENT':
       return addIngredient(state, action.ingredient);
     case 'REMOVE_INGREDIENT':
       return removeIngredient(state, action.ingredientId);
     case 'CLEAR_INGREDIENTS':
-      return []
+      return {
+        ...state,
+        main: []
+      }
     default:
       return state;
   }

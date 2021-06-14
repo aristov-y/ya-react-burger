@@ -1,33 +1,32 @@
 import React, { FunctionComponent, useContext } from 'react';
-import useBurgerState from '../state/useBurgerState';
 import useConstructorState from '../state/useConstructorState';
 
 interface OwnProps {}
 
 type Props = OwnProps;
 
-type ContextType = {
-  burgerConstructor: Partial<ReturnType<typeof useConstructorState>>;
-  burgerIngredients: Partial<ReturnType<typeof useBurgerState>>
+type ContextType = ReturnType<typeof useConstructorState>;
+
+const initialState: ContextType = {
+  ingredients: {
+    main: []
+  },
+  addIngredient: () => {},
+  removeIngredient: () => {},
+  clearIngredients: () => {}
 }
 
-const StateContext = React.createContext<ContextType>({
-  burgerConstructor: {},
-  burgerIngredients: {}
-});
+const StateContext = React.createContext<ContextType>(initialState);
 
 export const ConstructorProvider: FunctionComponent<Props> = ({ children }) => {
-  const burgerConstructor = useConstructorState();
-  const burgerIngredients = useBurgerState();
-  const value = {
-    burgerConstructor,
-    burgerIngredients
-  };
+  const { addIngredient, clearIngredients, ingredients, removeIngredient } = useConstructorState();
   return (
-    <StateContext.Provider value={value} >
+    <StateContext.Provider
+      value={{ addIngredient, clearIngredients, ingredients, removeIngredient }}
+    >
       {children}
     </StateContext.Provider>
   );
 };
 
-export const useConstructorHooks = () => useContext(StateContext);
+export const useConstructorStateHook = () => useContext(StateContext);
