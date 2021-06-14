@@ -12,6 +12,7 @@ function constructorReducer(state: ConstructorState, action: ActionType = {}): C
     case 'CLEAR_INGREDIENTS':
       return {
         ...state,
+        bun: undefined,
         main: []
       }
     default:

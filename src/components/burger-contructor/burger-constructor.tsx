@@ -8,6 +8,7 @@ import classnames from 'classnames';
 import styles from './burger-constructor.module.css'
 import OrderDetails from '../order-details/order-details';
 import { useConstructorStateHook } from '../../state/providers/constructor-provider';
+import getOrder from '../../utils/get-order';
 
 interface OwnProps {
 
@@ -24,6 +25,7 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
     removeIngredient,
     clearIngredients
   } = useConstructorStateHook();
+  const [coDisable, setCODisable] = useState(false);
   const [orderNum, setOrderNum] = useState(0);
   const [showOrder, setShowOrder] = useState(false);
   const [price, setPrice] = useState(0);
@@ -42,8 +44,18 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
     clearIngredients();
   };
   const onOrderClick = () => {
+    setCODisable(true)
     if (main.length && bun) {
-      setShowOrder(true);
+      getOrder([...main.map(e => e._id), bun._id, bun._id])
+        .then(order => {
+          setOrderNum(order.order.number)
+          setShowOrder(true);
+          setCODisable(false)
+        })
+        .catch(err => {
+          console.error(err);
+          setCODisable(false)
+        })
     }
   }
   return (
@@ -101,7 +113,7 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
         <Button
           type="primary"
           size="medium"
-          onClick={onOrderClick}
+          onClick={coDisable ? () => {} : onOrderClick}
         >
           Оформить заказ
         </Button>
