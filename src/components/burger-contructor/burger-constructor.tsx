@@ -7,8 +7,9 @@ import {
 import classnames from 'classnames';
 import styles from './burger-constructor.module.css'
 import OrderDetails from '../order-details/order-details';
-import { useConstructorStateHook } from '../../state/providers/constructor-provider';
+import { clearIngredients, removeIngredient, StoreDispatch, StoreType } from '../../services/store';
 import getOrder from '../../utils/get-order';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface OwnProps {
 
@@ -17,14 +18,8 @@ interface OwnProps {
 type Props = OwnProps;
 
 const BurgerConstructor: FunctionComponent<Props> = () => {
-  const {
-    ingredients: {
-      main,
-      bun
-    },
-    removeIngredient,
-    clearIngredients
-  } = useConstructorStateHook();
+  const dispatch = useDispatch<StoreDispatch>();
+  const { main, bun } = useSelector<StoreType, StoreType["constructor"]>(state => state.constructor)
   const [coDisable, setCODisable] = useState(false);
   const [orderNum, setOrderNum] = useState(0);
   const [showOrder, setShowOrder] = useState(false);
@@ -41,7 +36,7 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
   }, [main, bun]);
   const onCloseOrder = () => {
     setShowOrder(false);
-    clearIngredients();
+    dispatch(clearIngredients());
   };
   const onOrderClick = () => {
     setCODisable(true)
@@ -88,7 +83,7 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
                     text={ e.name }
                     thumbnail={ e.image }
                     price={ e.price }
-                    handleClose={ () => removeIngredient(e._id) }
+                    handleClose={ () => dispatch(removeIngredient(e._id)) }
                   />
                 </div>
               )
