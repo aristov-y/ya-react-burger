@@ -1,15 +1,17 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import {
   Button,
   ConstructorElement,
-  CurrencyIcon, DragIcon
+  CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import classnames from 'classnames';
 import styles from './burger-constructor.module.css'
 import OrderDetails from '../order-details/order-details';
-import { clearIngredients, removeIngredient, StoreDispatch, StoreType } from '../../services/store';
+import { clearIngredients, StoreDispatch, StoreType } from '../../services/store';
 import getOrder from '../../utils/get-order';
 import { useDispatch, useSelector } from 'react-redux';
+import BurgerConstructorItem from '../burger-constructor-element/burger-constructor-item';
+import { useDrop } from 'react-dnd';
 
 interface OwnProps {
 
@@ -19,6 +21,7 @@ type Props = OwnProps;
 
 const BurgerConstructor: FunctionComponent<Props> = () => {
   const dispatch = useDispatch<StoreDispatch>();
+  const itemsRef = useRef<HTMLDivElement>(null);
   const { main, bun } = useSelector<StoreType, StoreType["constructor"]>(state => state.constructor)
   const [coDisable, setCODisable] = useState(false);
   const [orderNum, setOrderNum] = useState(0);
@@ -34,6 +37,13 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
     }
 
   }, [main, bun]);
+  const [,drop] = useDrop({
+    accept: 'ingredient',
+  })
+  const [,dropSource] = useDrop({
+    accept: 'source',
+    drop: () => ({name: 'constructor'}),
+  })
   const onCloseOrder = () => {
     setShowOrder(false);
     dispatch(clearIngredients());
@@ -53,8 +63,9 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
         })
     }
   }
+
   return (
-    <div className={ 'mt-25' } style={ { flex: '1', maxWidth: '592px' } }>
+    <div className={ 'mt-25' } style={ { flex: '1', maxWidth: '592px' } } ref={dropSource}>
       <div style={ { display: 'flex', flexDirection: 'column', gap: '10px' } }>
         { bun && (
           <div className={ styles['burger-constructor-item'] }>
@@ -66,28 +77,12 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
             />
           </div>
         ) }
-        <div className={ styles['burger-constructor-scroller'] }>
+        <div className={ styles['burger-constructor-scroller'] } ref={drop}>
           {
-            main.map((e, idx) => {
-              return (
-                <div
-                  className={
-                    classnames(
-                      styles['burger-constructor-item'],
-                      styles['burger-constructor-item__draggable']
-                    ) }
-                >
-                  <DragIcon type={ 'primary' }/>
-                  <ConstructorElement
-                    key={ `&{e._id}_${ idx }` }
-                    text={ e.name }
-                    thumbnail={ e.image }
-                    price={ e.price }
-                    handleClose={ () => dispatch(removeIngredient(e._id)) }
-                  />
-                </div>
+            main.map((e, idx) => (
+                <BurgerConstructorItem item={e} index={idx} key={ `${e._id}_${ idx }` } />
               )
-            })
+            )
           }
         </div>
         { bun && (

@@ -18,24 +18,6 @@
     border-radius: 6px;
 }
 
-.burger-constructor-item {
-    display: flex;
-    align-items: center;
-    margin-left: 25px;
-}
-
-.burger-constructor-item__draggable {
-    margin-left: 0;
-}
-
-.burger-constructor-item > :global(.constructor-element) {
-    margin-left: 10px;
-    width: 100%;
-}
-:global(.constructor-element__text) {
-    flex: 1;
-}
-
 .burger-constructor-checkout {
     display: flex;
     justify-content: flex-end;

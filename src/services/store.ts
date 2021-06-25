@@ -4,7 +4,6 @@ import {
   createSlice, PayloadAction,
 } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk';
-import { createStore, combineReducers } from 'redux'
 import fetchIngredients, { Ingredient } from '../utils/ingredients';
 
 const initialState = {

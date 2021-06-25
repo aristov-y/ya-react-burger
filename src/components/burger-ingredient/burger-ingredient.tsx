@@ -3,6 +3,7 @@ import styles from './burger-ingredient.module.css'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import classnames from 'classnames';
 import { Ingredient } from '../../utils/ingredients';
+import { useDrag } from 'react-dnd';
 
 interface OwnProps {
   item: Ingredient
@@ -20,8 +21,25 @@ const BurgerIngredient: FunctionComponent<Props> = ({ item, onClick, count = 0, 
     evt.preventDefault();
     onImageClick && onImageClick();
   }
+  const [,drag] = useDrag({
+    type: 'source',
+    item: {
+      payload: item._id
+    },
+    end: (draggedItem: any, monitor) => {
+      const dropResult = monitor.getDropResult<any>();
+
+      if (dropResult) {
+        onClick && onClick();
+      }
+    }
+  })
   return (
-    <div className={ classnames(styles['burger-ingredient'], 'mt-2') } onClick={ onClick }>
+    <div
+      className={ classnames(styles['burger-ingredient'], 'mt-2') }
+      onClick={ onClick }
+      ref={drag}
+    >
       <img className={ 'ml-4 mr-4' } alt={ name } src={ img } onClick={onImageClickInternal}/>
       <div className="mt-1">
         <span
