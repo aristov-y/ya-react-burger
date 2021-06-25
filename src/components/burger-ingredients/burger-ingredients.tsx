@@ -1,11 +1,12 @@
 import classnames from 'classnames';
-import React, { FunctionComponent, useRef, useState } from 'react';
+import React, { FunctionComponent, useCallback, useRef, useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientsSection from './burger-ingredients-section';
 import { Ingredient } from '../../utils/ingredients';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
+import useEventListener from '../../hooks/use-event-listener';
 
 interface OwnProps {
   className?: string,
@@ -18,11 +19,28 @@ const BurgerIngredients: FunctionComponent<Props> = ({
   className,
   ingredients
 }) => {
+  const scrollerRef = useRef<HTMLDivElement>(null);
   const bunRef = useRef<HTMLDivElement>(null);
   const sauceRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState<Ingredient | undefined>(undefined);
   const [tabValue, setTabValue] = useState<string>('Булки');
+  const onScroll = useCallback(() => {
+    if (scrollerRef.current && bunRef.current && sauceRef.current && mainRef.current) {
+      const bunTop = bunRef.current.offsetTop;
+      const mainTop = mainRef.current.offsetTop;
+      const sauceTop = sauceRef.current.offsetTop;
+      const scroll = scrollerRef.current.scrollTop + 0.5 * scrollerRef.current.clientHeight;
+      if (Math.abs(bunTop - scroll) < Math.abs(sauceTop - scroll)) {
+        setTabValue('Булки');
+      } else if (Math.abs(sauceTop - scroll) < Math.abs(mainTop - scroll)) {
+        setTabValue('Соусы')
+      } else {
+        setTabValue('Начинки')
+      }
+    }
+  }, []);
+  useEventListener('scroll', onScroll, scrollerRef);
   const onTabClick = (id: string) => {
     if (id === 'Булки') {
       bunRef.current?.scrollIntoView({
@@ -65,7 +83,7 @@ const BurgerIngredients: FunctionComponent<Props> = ({
           onClick={onTabClick}
           children={"Начинки"} />
       </div>
-      <div className={classnames('mt-10', styles['burger-ingredients-scroller'])}>
+      <div className={classnames('mt-10', styles['burger-ingredients-scroller'])} ref={scrollerRef}>
         <BurgerIngredientsSection
           titleRef={bunRef}
           title="Булки"
