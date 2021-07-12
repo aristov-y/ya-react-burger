@@ -1,49 +1,71 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Ingredient } from '../../utils/ingredients';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import {
   Button,
   ConstructorElement,
-  CurrencyIcon, DragIcon
+  CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import classnames from 'classnames';
 import styles from './burger-constructor.module.css'
 import OrderDetails from '../order-details/order-details';
+import { clearIngredients, StoreDispatch, StoreType } from '../../services/store';
+import getOrder from '../../utils/get-order';
+import { useDispatch, useSelector } from 'react-redux';
+import BurgerConstructorItem from '../burger-constructor-element/burger-constructor-item';
+import { useDrop } from 'react-dnd';
 
 interface OwnProps {
-  items: Ingredient[],
-  removeItem: (id: string) => void;
-  clearItems: () => void;
+
 }
 
 type Props = OwnProps;
 
-const BurgerConstructor: FunctionComponent<Props> = ({
-  items,
-  removeItem,
-  clearItems
-}) => {
+const BurgerConstructor: FunctionComponent<Props> = () => {
+  const dispatch = useDispatch<StoreDispatch>();
+  const itemsRef = useRef<HTMLDivElement>(null);
+  const { main, bun } = useSelector<StoreType, StoreType["constructor"]>(state => state.constructor)
+  const [coDisable, setCODisable] = useState(false);
+  const [orderNum, setOrderNum] = useState(0);
   const [showOrder, setShowOrder] = useState(false);
-  const [bun, setBun] = useState<Ingredient>();
   const [price, setPrice] = useState(0);
   useEffect(() => {
-    setBun(items?.filter(e => e.type === 'bun')[0]);
-    setPrice(items!.reduce(
-      (prev, curr) => prev + (curr.type === 'bun' ? 2 * curr.price : curr.price), 0)
-    );
-  }, [items]);
+    const newTotal = main.reduce(
+      (prev, curr) => prev + curr.price, 0);
+    if (bun) {
+      setPrice(newTotal + 2 * bun.price);
+    } else {
+      setPrice(newTotal);
+    }
+
+  }, [main, bun]);
+  const [,drop] = useDrop({
+    accept: 'ingredient',
+  })
+  const [,dropSource] = useDrop({
+    accept: 'source',
+    drop: () => ({name: 'constructor'}),
+  })
   const onCloseOrder = () => {
     setShowOrder(false);
-    // Временно скрыто
-    // clearItems();
+    dispatch(clearIngredients());
   };
   const onOrderClick = () => {
-    // временно показ модалки вне условий
-    // if (items && items.length > 0) {
-      setShowOrder(true);
-    // }
+    setCODisable(true)
+    if (main.length && bun) {
+      getOrder([...main.map(e => e._id), bun._id, bun._id])
+        .then(order => {
+          setOrderNum(order.order.number)
+          setShowOrder(true);
+          setCODisable(false)
+        })
+        .catch(err => {
+          console.error(err);
+          setCODisable(false)
+        })
+    }
   }
+
   return (
-    <div className={ 'mt-25' } style={ { flex: '1', maxWidth: '592px' } }>
+    <div className={ 'mt-25' } style={ { flex: '1', maxWidth: '592px' } } ref={dropSource}>
       <div style={ { display: 'flex', flexDirection: 'column', gap: '10px' } }>
         { bun && (
           <div className={ styles['burger-constructor-item'] }>
@@ -55,28 +77,12 @@ const BurgerConstructor: FunctionComponent<Props> = ({
             />
           </div>
         ) }
-        <div className={ styles['burger-constructor-scroller'] }>
+        <div className={ styles['burger-constructor-scroller'] } ref={drop}>
           {
-            items!.filter(e => e.type !== 'bun').map((e, idx) => {
-              return (
-                <div
-                  className={
-                    classnames(
-                      styles['burger-constructor-item'],
-                      styles['burger-constructor-item__draggable']
-                    ) }
-                >
-                  <DragIcon type={ 'primary' }/>
-                  <ConstructorElement
-                    key={ `&{e._id}_${ idx }` }
-                    text={ e.name }
-                    thumbnail={ e.image }
-                    price={ e.price }
-                    handleClose={ () => removeItem(e._id) }
-                  />
-                </div>
+            main.map((e, idx) => (
+                <BurgerConstructorItem item={e} index={idx} key={ `${e._id}_${ idx }` } />
               )
-            })
+            )
           }
         </div>
         { bun && (
@@ -97,12 +103,12 @@ const BurgerConstructor: FunctionComponent<Props> = ({
         <Button
           type="primary"
           size="medium"
-          onClick={onOrderClick}
+          onClick={coDisable ? () => {} : onOrderClick}
         >
           Оформить заказ
         </Button>
       </div>
-      { showOrder && <OrderDetails onClose={onCloseOrder} /> }
+      { showOrder && <OrderDetails onClose={onCloseOrder} orderNum={orderNum} /> }
     </div>
   )
 }

@@ -2,6 +2,8 @@ import React, { FunctionComponent, useCallback } from 'react';
 import classnames from 'classnames';
 import { Ingredient } from '../../utils/ingredients';
 import BurgerIngredient from '../burger-ingredient';
+import { useDispatch, useSelector } from 'react-redux';
+import { addIngredient, StoreDispatch, StoreType } from '../../services/store';
 
 interface OwnProps {
   titleClassName?: string;
@@ -9,8 +11,6 @@ interface OwnProps {
   titleRef?: any;
   title: string;
   items: Ingredient[],
-  addIngredient: (val: Ingredient) => void,
-  constructorItems: Ingredient[],
   onShowDetails: (item: Ingredient) => void;
 }
 
@@ -21,16 +21,24 @@ const BurgerIngredientsSection: FunctionComponent<Props> = ({
   items,
   itemsClassName,
   titleRef,
-  addIngredient,
-  constructorItems,
   onShowDetails
 }) => {
+  const dispatch = useDispatch<StoreDispatch>();
+  const {
+    main, bun
+  } = useSelector<StoreType, StoreType["constructor"]>(store => store.constructor);
   const getCount = useCallback((id: string) => {
-    if (constructorItems) {
-      return constructorItems.filter(e => e._id === id).length;
+    if (bun && bun._id === id) {
+      return 1;
+    }
+    if (main) {
+      return main.filter(e => e._id === id).length;
     }
     return 0;
-  }, [constructorItems]);
+  }, [main, bun]);
+  const onIngredientClick = (item: Ingredient) => {
+    dispatch(addIngredient(item))
+  }
   return (
     <>
       <div ref={ titleRef }>
@@ -45,7 +53,7 @@ const BurgerIngredientsSection: FunctionComponent<Props> = ({
               <BurgerIngredient
                 key={ item._id }
                 item={item}
-                onClick={ () => addIngredient && addIngredient(item) }
+                onClick={ () => onIngredientClick(item) }
                 onImageClick={() => onShowDetails(item)}
                 count={ getCount(item._id) }
               />

@@ -5,10 +5,10 @@ import orderDoneImage from '../../images/order-done.svg';
 
 type Props = {
   onClose: () => void;
+  orderNum: number
 }
 
-function OrderDetails({ onClose }: Props) {
-  const orderNum = Math.round(Math.random() * 654321 + 12345).toString(10).padStart(6, '0');
+function OrderDetails({ onClose, orderNum }: Props) {
   useEffect(() => {
     new Image().src = orderDoneImage;
   }, []);
