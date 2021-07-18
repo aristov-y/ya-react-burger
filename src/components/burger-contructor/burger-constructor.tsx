@@ -65,16 +65,22 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
         });
         return;
       }
-      getOrder([...main.map(e => e._id), bun._id, bun._id])
-        .then(order => {
-          setOrderNum(order.order.number)
-          setShowOrder(true);
-          setCODisable(false)
-        })
-        .catch(err => {
-          console.error(err);
-          setCODisable(false)
-        })
+      try {
+        getOrder([...main.map(e => e._id), bun._id, bun._id])
+          .then(order => {
+            setOrderNum(order.order.number)
+            setShowOrder(true);
+            setCODisable(false)
+          })
+          .catch(err => {
+            console.error(err);
+            setCODisable(false)
+          })
+      } finally {
+        setCODisable(false);
+      }
+    } else {
+      setCODisable(false);
     }
   }
 

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import MainContainer from '../../components/main-container';
 import { Button, Input, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import styles from './forgot-password-page.module.css'
 
 interface OwnProps {}
@@ -24,6 +24,7 @@ const ForgotPasswordPage: FunctionComponent<Props> = (props) => {
       .then(response => response.json())
       .then(data => {
         if (data.success) {
+          localStorage.setItem('resetPassword', 'true');
           history.replace({
             pathname: '/reset-password',
             state: {
@@ -33,6 +34,12 @@ const ForgotPasswordPage: FunctionComponent<Props> = (props) => {
         }
       })
   };
+  const withReset = localStorage.getItem('resetPassword')
+  if (withReset === 'true') {
+    return (
+      <Redirect to="/reset-password" />
+    )
+  }
   return (
     <MainContainer vertical className={styles.ForgotPasswordMain}>
       <div className={styles.Logo}>

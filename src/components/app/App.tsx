@@ -20,6 +20,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { Ingredient } from '../../utils/ingredients';
 import OrdersPage from '../../pages/orders-page';
 import OrderPage from '../../pages/order-page';
+import ProtectedUnauthorizedRouteWithReset from '../protected-unauthorized-route-with-reset';
 
 function App() {
   const dispatch = useDispatch<StoreDispatch>();
@@ -56,9 +57,9 @@ function App() {
         <ProtectedUnauthorizedRoute exact path="/forgot-password">
           <ForgotPasswordPage />
         </ProtectedUnauthorizedRoute>
-        <ProtectedUnauthorizedRoute exact path="/reset-password">
+        <ProtectedUnauthorizedRouteWithReset exact path="/reset-password">
           <ResetPasswordPage />
-        </ProtectedUnauthorizedRoute>
+        </ProtectedUnauthorizedRouteWithReset>
         <ProtectedRoute exact path="/profile">
           <ProfilePage />
         </ProtectedRoute>
