@@ -1,0 +1,15 @@
+.Main {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.Main :global(.input_size_default) {
+    width: 480px;
+}
+
+.Buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}

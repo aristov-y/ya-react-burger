@@ -5,6 +5,7 @@ import {
 } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk';
 import fetchIngredients, { Ingredient } from '../utils/ingredients';
+import { auth } from './auth';
 
 const initialState = {
   ingredients: [] as Ingredient[],
@@ -94,14 +95,15 @@ const {
 
 const reducer = {
   [ingredients.name]: ingredients.reducer,
-  [constructor.name]: constructor.reducer
+  [constructor.name]: constructor.reducer,
+  [auth.name]: auth.reducer
 }
 
 const store = configureStore({
   reducer,
   preloadedState: {
     constructor: constructorState,
-    ingredients: initialState
+    ingredients: initialState,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat([thunk]),
   devTools: process.env.NODE_ENV !== 'production'

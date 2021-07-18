@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import {
   Button,
   ConstructorElement,
@@ -12,6 +12,8 @@ import getOrder from '../../utils/get-order';
 import { useDispatch, useSelector } from 'react-redux';
 import BurgerConstructorItem from '../burger-constructor-element/burger-constructor-item';
 import { useDrop } from 'react-dnd';
+import { useHistory, useLocation } from 'react-router-dom';
+import { UserInfo } from '../../services/auth';
 
 interface OwnProps {
 
@@ -21,7 +23,10 @@ type Props = OwnProps;
 
 const BurgerConstructor: FunctionComponent<Props> = () => {
   const dispatch = useDispatch<StoreDispatch>();
-  const itemsRef = useRef<HTMLDivElement>(null);
+  const history = useHistory();
+  const location = useLocation();
+  const { name } = useSelector<StoreType, UserInfo>(store => store.auth.user);
+  const token = localStorage.getItem('token');
   const { main, bun } = useSelector<StoreType, StoreType["constructor"]>(state => state.constructor)
   const [coDisable, setCODisable] = useState(false);
   const [orderNum, setOrderNum] = useState(0);
@@ -51,6 +56,15 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
   const onOrderClick = () => {
     setCODisable(true)
     if (main.length && bun) {
+      if (!name && !token) {
+        history.replace({
+          pathname: "/login",
+          state: {
+            from: location
+          }
+        });
+        return;
+      }
       getOrder([...main.map(e => e._id), bun._id, bun._id])
         .then(order => {
           setOrderNum(order.order.number)

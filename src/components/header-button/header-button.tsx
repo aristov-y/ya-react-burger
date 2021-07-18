@@ -2,6 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import getIcon from './getIcon';
 import styles from './header-button.module.css';
+import { NavLink } from 'react-router-dom';
 
 type IconTypes = 'BURGER' | 'LIST' | 'PROFILE';
 
@@ -9,32 +10,36 @@ interface OwnProps {
   text: string;
   type: IconTypes
   onClick?: () => void;
-  active: boolean;
+  to: string;
 }
 
 type Props = OwnProps;
 
-const HeaderButton: FunctionComponent<Props> = ({ text, type, onClick, active }) => {
+const HeaderButton: FunctionComponent<Props> = ({ text, type, to }) => {
   const [icon, setIcon] = useState<JSX.Element>(<></>);
   useEffect(() => {
-    setIcon(getIcon(type, active));
-  }, [type, active])
-  const className = `text ml-2 text_type_main-default`
-    + ` ${styles['button-text']} ${active ? '' : 'text_color_inactive'}`
+    setIcon(getIcon(type));
+  }, [type])
   return (
-    <Button
-      type="secondary"
-      size="medium"
-      onClick={onClick}
+    <NavLink
+      to={to}
+      exact
+      className=""
+      activeClassName={styles.ActiveLink}
     >
-      {icon}
-      <span
-        className={className}
-        style={{verticalAlign: 'super'}}
+      <Button
+        type="secondary"
+        size="medium"
       >
-        {text}
-      </span>
-    </Button>
+        {icon}
+        <span
+          style={{verticalAlign: 'super'}}
+          className={`text ml-2 text_type_main-default ${styles.ButtonText}`}
+        >
+          {text}
+        </span>
+      </Button>
+    </NavLink>
   );
 };
 
