@@ -18,7 +18,8 @@ const LoginPage: FunctionComponent<Props> = (props: React.PropsWithChildren<Prop
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
-  const onLoginClick = () => {
+  const onHandleSubmit: React.FormEventHandler<HTMLFormElement> = (ev) => {
+    ev.preventDefault();
     dispatch(loginAction({
       email,
       password
@@ -31,13 +32,14 @@ const LoginPage: FunctionComponent<Props> = (props: React.PropsWithChildren<Prop
     )
   }
   return (
-    <MainContainer vertical className={styles.LoginContainer} style={{ gap: '24px' }}>
+    <form className={styles.LoginContainer} onSubmit={onHandleSubmit}>
       <div>
         <Logo />
       </div>
       <h2 className={styles.H2}>Вход</h2>
       <div>
         <Input
+          name="email"
           value={email}
           onChange={(ev) => setEmail(ev.target.value)}
           type="email"
@@ -46,6 +48,7 @@ const LoginPage: FunctionComponent<Props> = (props: React.PropsWithChildren<Prop
       </div>
       <div>
         <Input
+          name="password"
           value={password}
           onChange={(ev) => setPassword(ev.target.value)}
           type={showPass ? 'text' : 'password'}
@@ -55,7 +58,7 @@ const LoginPage: FunctionComponent<Props> = (props: React.PropsWithChildren<Prop
         />
       </div>
       <div>
-        <Button size="medium" onClick={onLoginClick}>Войти</Button>
+        <Button size="medium" type="primary">Войти</Button>
       </div>
       <div>
         <span>
@@ -69,7 +72,7 @@ const LoginPage: FunctionComponent<Props> = (props: React.PropsWithChildren<Prop
           <Link to="/forgot-password">Восстановить пароль</Link>
         </span>
       </div>
-    </MainContainer>
+    </form>
   );
 };
 

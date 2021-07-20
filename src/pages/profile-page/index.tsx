@@ -84,44 +84,50 @@ const ProfilePage: FunctionComponent<Props> = (props) => {
       email: email
     }))
   }
+  const onHandleSubmit: React.FormEventHandler<HTMLFormElement> = (ev) => {
+    ev.preventDefault();
+    onSave();
+  }
   return (
     <Profile mainBlockClassName={styles.Main}>
-      <div>
-        <Input
-          value={name}
-          onChange={(ev) => setName(ev.target.value)}
-          type="text"
-          placeholder="Имя"
-          icon={nameIcon}
-          // onFocus={() => onFocus('name')}
-          // onBlur={() => onBlur('name')}
-          onIconClick={() => onClear('name', nameIcon === 'CloseIcon')}
-        />
-      </div>
-      <div>
-        <Input
-          value={email}
-          onChange={(ev) => setEmail(ev.target.value)}
-          type="text"
-          placeholder="E-mail"
-          icon={emailIcon}
-          // onFocus={() => onFocus('email')}
-          // onBlur={() => onBlur('email')}
-          onIconClick={() => onClear('email', nameIcon === 'CloseIcon')}
-        />
-      </div>
-      <div>
-        <Input
-          value={password}
-          onChange={(ev) => setPassword(ev.target.value)}
-          type="text"
-          placeholder="Пароль"
-          icon={passIcon}
-          // onFocus={() => onFocus('password')}
-          // onBlur={() => onBlur('password')}
-          onIconClick={() => onClear('password', nameIcon === 'CloseIcon')}
-        />
-      </div>
+      <form className={styles.MainForm} onSubmit={onHandleSubmit}>
+        <div>
+          <Input
+            value={name}
+            onChange={(ev) => setName(ev.target.value)}
+            type="text"
+            placeholder="Имя"
+            icon={nameIcon}
+            // onFocus={() => onFocus('name')}
+            // onBlur={() => onBlur('name')}
+            onIconClick={() => onClear('name', nameIcon === 'CloseIcon')}
+          />
+        </div>
+        <div>
+          <Input
+            value={email}
+            onChange={(ev) => setEmail(ev.target.value)}
+            type="text"
+            placeholder="E-mail"
+            icon={emailIcon}
+            // onFocus={() => onFocus('email')}
+            // onBlur={() => onBlur('email')}
+            onIconClick={() => onClear('email', nameIcon === 'CloseIcon')}
+          />
+        </div>
+        <div>
+          <Input
+            value={password}
+            onChange={(ev) => setPassword(ev.target.value)}
+            type="text"
+            placeholder="Пароль"
+            icon={passIcon}
+            // onFocus={() => onFocus('password')}
+            // onBlur={() => onBlur('password')}
+            onIconClick={() => onClear('password', nameIcon === 'CloseIcon')}
+          />
+        </div>
+      </form>
       <div className={styles.Buttons}>
         <Button type="secondary" onClick={onCancel}>Отмена</Button>
         <Button type="primary" onClick={onSave}>Сохранить</Button>

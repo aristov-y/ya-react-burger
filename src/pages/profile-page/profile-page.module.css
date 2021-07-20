@@ -8,6 +8,12 @@
     width: 480px;
 }
 
+.MainForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
 .Buttons {
     display: flex;
     flex-direction: row;

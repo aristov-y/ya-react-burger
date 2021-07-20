@@ -18,7 +18,8 @@ const RegisterPage: FunctionComponent<Props> = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
-  const onRegisterClick = () => {
+  const onHandleSubmit: React.FormEventHandler<HTMLFormElement> = (ev) => {
+    ev.preventDefault();
     dispatch(registerAction({
       name,
       email,
@@ -29,13 +30,14 @@ const RegisterPage: FunctionComponent<Props> = (props) => {
       })
   }
   return (
-    <MainContainer vertical className={styles.RegisterContainer}>
+    <form className={styles.RegisterContainer} onSubmit={onHandleSubmit}>
       <div>
         <Logo />
       </div>
       <h2 className={styles.H2}>Регистрация</h2>
       <div>
         <Input
+          name="name"
           value={name}
           onChange={(ev) => setName(ev.target.value)}
           type="text"
@@ -44,6 +46,7 @@ const RegisterPage: FunctionComponent<Props> = (props) => {
       </div>
       <div>
         <Input
+          name="email"
           value={email}
           onChange={(ev) => setEmail(ev.target.value)}
           type="email"
@@ -52,6 +55,7 @@ const RegisterPage: FunctionComponent<Props> = (props) => {
       </div>
       <div>
         <Input
+          name="password"
           value={password}
           onChange={(ev) => setPassword(ev.target.value)}
           type={showPass ? 'text' : 'password'}
@@ -61,7 +65,7 @@ const RegisterPage: FunctionComponent<Props> = (props) => {
         />
       </div>
       <div>
-        <Button onClick={onRegisterClick}>Зарегистрироваться</Button>
+        <Button type="primary">Зарегистрироваться</Button>
       </div>
       <div>
         <span>
@@ -69,7 +73,7 @@ const RegisterPage: FunctionComponent<Props> = (props) => {
           <Link to="/login">Войти</Link>
         </span>
       </div>
-    </MainContainer>
+    </form>
   );
 };
 

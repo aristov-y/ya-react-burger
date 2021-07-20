@@ -13,7 +13,8 @@ const ResetPasswordPage: FunctionComponent<Props> = (props) => {
   const [token, setToken] = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
-  const onResetClick = useCallback(() => {
+  const onHandleSubmit: React.FormEventHandler = useCallback((ev) => {
+    ev.preventDefault();
     fetch('https://norma.nomoreparties.space/api/password-reset/reset', {
       method: 'post',
       headers: {
@@ -35,7 +36,7 @@ const ResetPasswordPage: FunctionComponent<Props> = (props) => {
       })
   }, [token, password, history]);
   return (
-    <MainContainer vertical className={styles.Main}>
+    <form className={styles.Main} onSubmit={onHandleSubmit}>
       <div>
         <Logo />
       </div>
@@ -61,12 +62,12 @@ const ResetPasswordPage: FunctionComponent<Props> = (props) => {
         />
       </div>
       <div>
-        <Button onClick={onResetClick}>Восстановить</Button>
+        <Button type="primary">Восстановить</Button>
       </div>
       <div>
         <span>Вспомнили пароль? <Link to="/login">Войти</Link></span>
       </div>
-    </MainContainer>
+    </form>
   );
 };
 

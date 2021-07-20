@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useState } from 'react';
-import MainContainer from '../../components/main-container';
 import { Button, Input, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import styles from './forgot-password-page.module.css'
@@ -11,7 +10,8 @@ type Props = OwnProps;
 const ForgotPasswordPage: FunctionComponent<Props> = (props) => {
   const history = useHistory();
   const [email, setEmail] = useState('');
-  const onResetClick = () => {
+  const onResetClick: React.FormEventHandler<HTMLFormElement> = (ev) => {
+    ev.preventDefault();
     fetch('https://norma.nomoreparties.space/api/password-reset', {
       method: 'post',
       headers: {
@@ -41,7 +41,7 @@ const ForgotPasswordPage: FunctionComponent<Props> = (props) => {
     )
   }
   return (
-    <MainContainer vertical className={styles.ForgotPasswordMain}>
+    <form className={styles.ForgotPasswordMain} onSubmit={onResetClick} >
       <div className={styles.Logo}>
         <Logo />
       </div>
@@ -50,6 +50,7 @@ const ForgotPasswordPage: FunctionComponent<Props> = (props) => {
       </div>
       <div className={styles.EmailInput}>
         <Input
+          name="email"
           value={email}
           onChange={(ev) => setEmail(ev.target.value)}
           placeholder="E-mail"
@@ -57,12 +58,12 @@ const ForgotPasswordPage: FunctionComponent<Props> = (props) => {
         />
       </div>
       <div>
-        <Button onClick={onResetClick}>Восстановить</Button>
+        <Button>Восстановить</Button>
       </div>
       <div>
         <span>Вспомнили пароль? <Link to="/login">Войти</Link></span>
       </div>
-    </MainContainer>
+    </form>
   );
 };
 
