@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './App.css';
+import './app.module.css';
 import AppHeader from '../app-header';
 import MainContainer from '../main-container';
 import BurgerIngredients from '../burger-ingredients';
