@@ -5,10 +5,6 @@ import MainContainer from '../main-container';
 import BurgerIngredients from '../burger-ingredients';
 import BurgerConstructor from '../burger-contructor';
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
-import LoginPage from '../../pages/login-page';
-import RegisterPage from '../../pages/register-page';
-import ResetPasswordPage from '../../pages/reset-password-page';
-import ProfilePage from '../../pages/profile-page';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadIngredients, StoreDispatch, StoreType } from '../../services/store';
 import { getUserAction } from '../../services/auth';
@@ -18,9 +14,11 @@ import ForgotPasswordPage from '../../pages/forgot-password-page';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { Ingredient } from '../../utils/ingredients';
-import OrdersPage from '../../pages/orders-page';
-import OrderPage from '../../pages/order-page';
 import ProtectedUnauthorizedRouteWithReset from '../protected-unauthorized-route-with-reset';
+import {
+  LoginPage, RegisterPage, ResetPasswordPage, ProfilePage,
+  OrdersPage, OrderPage, FeedListPage, FeedPage
+} from '../../pages'
 
 function App() {
   const dispatch = useDispatch<StoreDispatch>();
@@ -47,6 +45,12 @@ function App() {
         </Route>
         <Route exact path="/ingredient/:id">
           <IngredientDetails items={ingredients} />
+        </Route>
+        <Route exact path="/feed">
+          <FeedListPage />
+        </Route>
+        <Route exact path="/feed/:feedId">
+          <FeedPage />
         </Route>
         <ProtectedUnauthorizedRoute exact path="/login">
           <LoginPage />

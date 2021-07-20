@@ -9,7 +9,7 @@ function AppHeader() {
       <Logo />
       <nav className={styles['app-header-nav']}>
         <HeaderButton text="Конструктор" type="BURGER" to="/" />
-        <HeaderButton text="Лента заказов" type="LIST" to="/profile/orders" />
+        <HeaderButton text="Лента заказов" type="LIST" to="/feed" />
       </nav>
       <div className={styles['app-header-profile-wrapper']}>
         <HeaderButton text="Личный кабинет" type="PROFILE" to="/profile"/>
