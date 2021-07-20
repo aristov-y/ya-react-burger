@@ -29,7 +29,7 @@ const BurgerIngredientsSection: FunctionComponent<Props> = ({
   } = useSelector<StoreType, StoreType["constructor"]>(store => store.constructor);
   const getCount = useCallback((id: string) => {
     if (bun && bun._id === id) {
-      return 1;
+      return 2;
     }
     if (main) {
       return main.filter(e => e._id === id).length;
