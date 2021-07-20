@@ -45,6 +45,7 @@ const BurgerIngredients: FunctionComponent<Props> = ({
   useEventListener('scroll', onScroll, scrollerRef);
   useEffect(() => {
     dispatch(loadIngredients());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const onTabClick = (id: string) => {
     if (id === 'Булки') {

@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import { Button, Input, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import styles from './forgot-password-page.module.css'
+import { resetPasswordRequest } from '../../utils/auth';
 
 interface OwnProps {}
 
@@ -12,26 +13,15 @@ const ForgotPasswordPage: FunctionComponent<Props> = (props) => {
   const [email, setEmail] = useState('');
   const onResetClick: React.FormEventHandler<HTMLFormElement> = (ev) => {
     ev.preventDefault();
-    fetch('https://norma.nomoreparties.space/api/password-reset', {
-      method: 'post',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        email
-      })
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          localStorage.setItem('resetPassword', 'true');
-          history.replace({
-            pathname: '/reset-password',
-            state: {
-              email
-            }
-          });
-        }
+    resetPasswordRequest(email)
+      .then(() => {
+        localStorage.setItem('resetPassword', 'true');
+        history.replace({
+          pathname: '/reset-password',
+          state: {
+            email
+          }
+        });
       })
   };
   const withReset = localStorage.getItem('resetPassword')

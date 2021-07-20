@@ -16,6 +16,7 @@ const ProfilePage: FunctionComponent<Props> = (props) => {
   const dispatch = useDispatch<StoreDispatch>();
   useEffect(() => {
     dispatch(getUserAction());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const {
     name: userName,
@@ -24,41 +25,11 @@ const ProfilePage: FunctionComponent<Props> = (props) => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState('');
-  const [nameIcon, setNameIcon] = useState<IconType>('EditIcon');
-  const [emailIcon, setEmailIcon] = useState<IconType>('EditIcon');
-  const [passIcon, setPassIcon] = useState<IconType>('EditIcon');
+  const [nameIcon] = useState<IconType>('EditIcon');
+  const [emailIcon] = useState<IconType>('EditIcon');
+  const [passIcon] = useState<IconType>('EditIcon');
   useEffect(() => setName(userName), [userName])
   useEffect(() => setEmail(userEmail), [userEmail])
-  const onFocus = useCallback((type: 'name' | 'password' | 'email') => {
-    switch (type) {
-      case 'email':
-        setEmailIcon('CloseIcon');
-        break;
-      case 'name':
-        setNameIcon('CloseIcon');
-        break;
-      case 'password':
-        setPassIcon('CloseIcon')
-        break;
-      default:
-        break;
-    }
-  }, []);
-  const onBlur = useCallback((type: 'name' | 'password' | 'email') => {
-    switch (type) {
-      case 'email':
-        setEmailIcon('EditIcon');
-        break;
-      case 'name':
-        setNameIcon('EditIcon');
-        break;
-      case 'password':
-        setPassIcon('EditIcon')
-        break;
-      default:
-        break;
-    }
-  }, []);
   const onClear = useCallback((type: 'name' | 'password' | 'email', canClose: boolean) => {
     if (canClose) {
       switch (type) {

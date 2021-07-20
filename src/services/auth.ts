@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, Draft, PayloadAction } from '@reduxjs/to
 import {
   loginRequest,
   logoutRequest,
-  registerRequest, updateUserInfo,
+  registerRequest, resetPasswordRequest, updateUserInfo,
   userInfoRequest
 } from '../utils/auth';
 
@@ -52,6 +52,11 @@ const getUserAction = createAsyncThunk(
 const updateUserAction = createAsyncThunk(
   'auth/updateUser',
   async (user: any) => updateUserInfo(user)
+)
+
+const resetPasswordAction = createAsyncThunk(
+  'auth/resetPasswordRequest',
+  async (email: string) => resetPasswordRequest(email)
 )
 
 const initialState: AuthState = {
@@ -140,5 +145,6 @@ export {
   loginAction,
   logoutAction,
   getUserAction,
-  updateUserAction
+  updateUserAction,
+  resetPasswordAction
 }

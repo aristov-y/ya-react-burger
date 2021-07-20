@@ -175,11 +175,52 @@ function updateUserInfo(user: any): Promise<UserResponse> {
     })
 }
 
+function resetPasswordRequest(email: string): Promise<SimpleResponse> {
+  return fetch('https://norma.nomoreparties.space/api/password-reset', {
+    method: 'post',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      email
+    })
+  })
+    .then(responseParse)
+    .then(data => {
+      if (data.success) {
+        return data;
+      }
+      return Promise.reject(data);
+    })
+}
+
+function resetPassword(token: string, password: string) {
+  return fetch('https://norma.nomoreparties.space/api/password-reset/reset', {
+    method: 'post',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      token,
+      password
+    })
+  })
+    .then(responseParse)
+    .then(data => {
+      if (data.success) {
+        return data;
+      }
+      return Promise.reject(data);
+    })
+}
+
 export {
   tokenRequest,
   loginRequest,
   logoutRequest,
   registerRequest,
   updateUserInfo,
-  userInfoRequest
+  userInfoRequest,
+  resetPasswordRequest,
+  resetPassword
 }

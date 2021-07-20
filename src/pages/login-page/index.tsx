@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useState } from 'react';
-import MainContainer from '../../components/main-container';
 import { Button, Input, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login-page.module.css';
 import { Link, Redirect, useLocation } from 'react-router-dom';
@@ -26,6 +25,7 @@ const LoginPage: FunctionComponent<Props> = (props: React.PropsWithChildren<Prop
     }))
   }
   if (name) {
+    localStorage.removeItem('resetPassword');
     const { from } = location.state || { from: { pathname: "/" } };
     return (
       <Redirect to={from} />

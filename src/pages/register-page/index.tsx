@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useState } from 'react';
-import MainContainer from '../../components/main-container';
 import { Button, Input, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './register-page.module.css';
 import { Link, useHistory } from 'react-router-dom';

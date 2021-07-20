@@ -29,6 +29,7 @@ function App() {
   useEffect(() => {
     dispatch(getUserAction());
     dispatch(loadIngredients());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const onModalClose = () => {
     history.replace(background);
