@@ -5,9 +5,9 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientsSection from './burger-ingredients-section';
 import { Ingredient } from '../../utils/ingredients';
-import IngredientDetails from '../ingredient-details/ingredient-details';
 import { loadIngredients, StoreDispatch, StoreType } from '../../services/store';
 import useEventListener from '../../hooks/use-event-listener';
+import { useHistory, useLocation } from 'react-router-dom';
 
 interface OwnProps {
   className?: string
@@ -18,13 +18,14 @@ type Props = OwnProps;
 const BurgerIngredients: FunctionComponent<Props> = ({
   className
 }) => {
+  const location = useLocation();
+  const history = useHistory();
   const scrollerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch<StoreDispatch>();
   const ingredients = useSelector<StoreType, Ingredient[]>(state => state.ingredients.ingredients);
   const bunRef = useRef<HTMLDivElement>(null);
   const sauceRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
-  const [selected, setSelected] = useState<Ingredient | undefined>(undefined);
   const [tabValue, setTabValue] = useState<string>('Булки');
   const onScroll = useCallback(() => {
     if (scrollerRef.current && bunRef.current && sauceRef.current && mainRef.current) {
@@ -44,6 +45,7 @@ const BurgerIngredients: FunctionComponent<Props> = ({
   useEventListener('scroll', onScroll, scrollerRef);
   useEffect(() => {
     dispatch(loadIngredients());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const onTabClick = (id: string) => {
     if (id === 'Булки') {
@@ -64,9 +66,14 @@ const BurgerIngredients: FunctionComponent<Props> = ({
     }
     setTabValue(id);
   }
-  const onModalClose = () => {
-    setSelected(undefined);
-  }
+  const onShowDetails = useCallback(({ _id }: Ingredient) => {
+    history.push({
+      pathname: "/ingredient/" + _id,
+      state: {
+        background: location
+      }
+    })
+  }, [history, location]);
   return (
     <div className={classnames(className, styles['burger-ingredients'], 'mt-10')}>
       <span className='text text_type_main-medium'>Соберите бургер</span>
@@ -93,25 +100,24 @@ const BurgerIngredients: FunctionComponent<Props> = ({
           title="Булки"
           items={ingredients.filter(e=> e.type === 'bun')}
           itemsClassName={styles['burger-ingredients-container']}
-          onShowDetails={setSelected}
+          onShowDetails={onShowDetails}
         />
         <BurgerIngredientsSection
           titleRef={sauceRef}
           title="Соусы"
           items={ingredients.filter(e=> e.type === 'sauce')}
           itemsClassName={styles['burger-ingredients-container']}
-          onShowDetails={setSelected}
+          onShowDetails={onShowDetails}
         />
         <BurgerIngredientsSection
           titleRef={mainRef}
           title="Начинки"
           items={ingredients.filter(e=> e.type === 'main')}
           itemsClassName={styles['burger-ingredients-container']}
-          onShowDetails={setSelected}
+          onShowDetails={onShowDetails}
         />
       </div>
-      { selected && <IngredientDetails onClose={onModalClose} item={selected}/> }
     </div>);
-};
+}
 
 export default BurgerIngredients;

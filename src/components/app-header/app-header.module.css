@@ -4,14 +4,28 @@
     justify-content: space-between;
     align-content: center;
     align-items: center;
+    padding: 0 300px;
 }
 
 .app-header > .app-header-nav {
-    order: -1;
+    /*order: -1;*/
+}
+
+.app-header-logo {
+    display: block;
+    width: 290px;
+}
+.app-header > .app-header-logo,
+.app-header > svg {
+    flex: 1;
+}
+
+.app-header-profile-wrapper {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .app-header > .app-header-nav,
-.app-header-profile-wrapper,
-.app-header > svg {
-    flex: 1;
+.app-header-profile-wrapper {
+    flex: 2;
 }
