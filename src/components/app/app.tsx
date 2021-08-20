@@ -19,6 +19,12 @@ import {
   LoginPage, RegisterPage, ResetPasswordPage, ProfilePage,
   OrdersPage, OrderPage, FeedListPage, FeedPage
 } from '../../pages'
+import { loadFeed } from '../../services/feed';
+import FeedItemModal from '../feed-item-modal';
+import OrderModal from '../order-modal';
+import { loadOrders } from '../../services/orders';
+import { getCookie } from '../../utils/cookies';
+import { WS_CONNECTION_START } from '../../services/action-types';
 
 function App() {
   const dispatch = useDispatch<StoreDispatch>();
@@ -29,11 +35,18 @@ function App() {
   useEffect(() => {
     dispatch(getUserAction());
     dispatch(loadIngredients());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    dispatch(loadFeed());
+    dispatch(loadOrders());
+  }, [dispatch]);
   const onModalClose = () => {
     history.replace(background);
   }
+  const token = getCookie('token');
+  useEffect(() => {
+    if (token) {
+      dispatch({ type: WS_CONNECTION_START })
+    }
+  }, [token]);
   return (
     <div className="App text text_type_main-default">
       <AppHeader />
@@ -76,13 +89,25 @@ function App() {
         </ProtectedRoute>
       </Switch>
       { background && (
-        <Route
-          exact
-          path="/ingredient/:id"
-          render={() => <Modal onClose={onModalClose} title="Детали ингредиента" >
-            <IngredientDetails items={ingredients} />
-          </Modal>}
-        />)
+        <>
+          <Route
+            exact
+            path="/ingredient/:id"
+            render={() => <Modal onClose={onModalClose} title="Детали ингредиента" >
+              <IngredientDetails items={ingredients} />
+            </Modal>}
+          />
+          <Route
+            exact
+            path="/feed/:id"
+            render={() => <FeedItemModal onClose={onModalClose} />}
+          />
+          <Route
+            exact
+            path="/profile/orders/:id"
+            render={() => <OrderModal onClose={onModalClose} />}
+          />
+        </>)
       }
     </div>
   );

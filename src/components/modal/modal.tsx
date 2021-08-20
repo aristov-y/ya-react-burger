@@ -30,7 +30,9 @@ export default function Modal({ children, title, onClose }: React.PropsWithChild
             <span className={`${styles['modal__title']} text text_type_main-medium`}>{title}</span>
             <CloseIcon type={'primary'} onClick={onClose}/>
           </div>
-          {children}
+          <div className={`${styles['modal__body']} ml-10 mr-10 mb-10`}>
+            {children}
+          </div>
         </div>
       </ModalOverlay>
     </Portal>

@@ -1,0 +1,42 @@
+.Ingredients {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    gap: 20px;
+}
+.Ingredient {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.IngredientImage {
+    border-radius: 999em;
+    width: 64px;
+    height: 64px;
+    line-height: 0;
+    border: 5px solid rgba(0, 0, 0, 0);
+    background-image: linear-gradient(#1c1c21, #1c1c21),
+    linear-gradient(to right, #771BBD, #683FD8);
+    background-color: transparent;
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    position: relative;
+}
+
+.IngredientImage > img {
+    border-radius: 999em;
+    height: 100%;
+    margin: 0 0 0 -50%;
+}
+
+.IngredientPrice {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.IngredientPrice > svg {
+    margin-left: 5px;
+}
