@@ -26,9 +26,15 @@ import { loadOrders } from '../../services/orders';
 import { getCookie } from '../../utils/cookies';
 import { WS_CONNECTION_START } from '../../services/action-types';
 
+type LocationBasic = ReturnType<typeof useLocation>
+
+type LocationState = {
+  background: LocationBasic
+}
+
 function App() {
   const dispatch = useDispatch<StoreDispatch>();
-  const location = useLocation<any>();
+  const location = useLocation<LocationState>();
   const history = useHistory();
   const background = history.action === 'PUSH' && location.state && location.state.background;
   const ingredients = useSelector<StoreType, Ingredient[]>(store => store.ingredients.ingredients);
@@ -46,7 +52,7 @@ function App() {
     if (token) {
       dispatch({ type: WS_CONNECTION_START })
     }
-  }, [token]);
+  }, [dispatch, token]);
   return (
     <div className="App text text_type_main-default">
       <AppHeader />

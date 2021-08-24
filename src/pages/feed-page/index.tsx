@@ -5,8 +5,12 @@ import { StoreType } from '../../services/store';
 import styles from './feed-page.module.css';
 import FeedItemDetails from '../../components/feed-item-details';
 
+type TParams = {
+  feedId: string;
+}
+
 const FeedPage = () => {
-  const { params } = useRouteMatch<any>();
+  const { params } = useRouteMatch<TParams>();
   const { feedId } = params;
   const { feed } = useSelector<StoreType, StoreType['feed']>(state => state.feed);
   const item = feed.find(val => val._id === feedId);

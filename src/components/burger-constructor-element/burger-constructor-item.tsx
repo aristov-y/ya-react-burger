@@ -14,13 +14,18 @@ interface OwnProps {
 
 type Props = OwnProps;
 
+type TDragObject = {
+  id: string;
+  index: number;
+}
+
 const BurgerConstructorItem = ({ item, index }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
 
-  const [,dropRef] = useDrop({
+  const [,dropRef] = useDrop<TDragObject, never, never>({
     accept: 'ingredient',
-    hover: (obj: any, monitor) => {
+    hover: (obj, monitor) => {
       if (!ref.current) {
         return;
       }
@@ -43,7 +48,7 @@ const BurgerConstructorItem = ({ item, index }: Props) => {
       obj.index = hoverIndex;
     }
   });
-  const [, dragRef] = useDrag({
+  const [, dragRef] = useDrag<TDragObject, never, never>({
     item: {
       id: item._id,
       index

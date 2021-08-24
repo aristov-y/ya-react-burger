@@ -2,9 +2,11 @@ import { createAsyncThunk, createSlice, Draft, PayloadAction } from '@reduxjs/to
 import {
   loginRequest,
   logoutRequest,
-  registerRequest, resetPasswordRequest, updateUserInfo,
+  registerRequest,
+  updateUserInfo,
   userInfoRequest
 } from '../utils/auth';
+import { TSimpleUserInfo } from '../types';
 
 export type UserInfo = {
   name: string;
@@ -51,12 +53,7 @@ const getUserAction = createAsyncThunk(
 
 const updateUserAction = createAsyncThunk(
   'auth/updateUser',
-  async (user: any) => updateUserInfo(user)
-)
-
-const resetPasswordAction = createAsyncThunk(
-  'auth/resetPasswordRequest',
-  async (email: string) => resetPasswordRequest(email)
+  async (user: TSimpleUserInfo) => updateUserInfo(user)
 )
 
 const initialState: AuthState = {
@@ -71,7 +68,7 @@ const auth = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser(state: Draft<AuthState>, action: PayloadAction<any>) {
+    setUser(state: Draft<AuthState>, action: PayloadAction<TSimpleUserInfo>) {
       state.user.email = action.payload.email;
       state.user.name = action.payload.name;
     }
@@ -109,9 +106,6 @@ const auth = createSlice({
         state.user.name = ''
         state.user.email = ''
       })
-      .addCase(logoutAction.rejected, (state) => {
-
-      })
       .addCase(getUserAction.pending, (state) => {
         state.user.name = ''
         state.user.email = ''
@@ -123,9 +117,6 @@ const auth = createSlice({
       })
       .addCase(getUserAction.rejected, (state) => {
         state.error = true;
-      })
-      .addCase(updateUserAction.pending, (state) => {
-
       })
       .addCase(updateUserAction.fulfilled, (state, action) => {
         state.user.name = action.payload.user.name;
@@ -145,6 +136,5 @@ export {
   loginAction,
   logoutAction,
   getUserAction,
-  updateUserAction,
-  resetPasswordAction
+  updateUserAction
 }

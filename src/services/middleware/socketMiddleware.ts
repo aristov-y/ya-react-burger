@@ -25,8 +25,8 @@ function socketMiddleware(wsUrl: string, wsActions: WebSocketAction): SocketMidd
           dispatch({ type: onOpen });
         };
 
-        socket.onerror = ({ code, reason }: any) => {
-          dispatch({ type: onError, payload: { code, reason } });
+        socket.onerror = () => {
+          dispatch({ type: onError, payload: { code: -1, reason: 'Unexpected Error' } });
         };
 
         socket.onmessage = event => {

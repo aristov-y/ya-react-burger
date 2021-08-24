@@ -8,7 +8,7 @@ import { addIngredient, StoreDispatch, StoreType } from '../../services/store';
 interface OwnProps {
   titleClassName?: string;
   itemsClassName?: string;
-  titleRef?: any;
+  titleRef?: React.RefObject<HTMLDivElement>;
   title: string;
   items: Ingredient[],
   onShowDetails: (item: Ingredient) => void;

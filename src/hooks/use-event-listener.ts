@@ -14,10 +14,13 @@ type Options = {
  * @param elementRef ссылка на DOM-элемент, к которому надо добавить подписку на событие
  * @param options опции подписки
  */
-function useEventListener(
+function useEventListener
+<Handler extends EventListener = EventListener,
+  RefType extends HTMLElement = HTMLElement>
+(
   eventName: string,
-  handler: any,
-  elementRef: React.RefObject<HTMLElement>,
+  handler: Handler,
+  elementRef: React.RefObject<RefType>,
   options: Options = {}
 ) {
   // Так как eslint не видит глобальный EventListener

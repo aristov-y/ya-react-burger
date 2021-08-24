@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchFeed, FeedItem } from '../utils/orders';
-import { WS_GET_MESSAGE } from './action-types';
 
 const defaultState = {
   feed: [] as FeedItem[],

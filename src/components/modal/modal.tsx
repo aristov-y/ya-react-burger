@@ -11,7 +11,7 @@ type Props = {
 
 export default function Modal({ children, title, onClose }: React.PropsWithChildren<Props>) {
   useEffect(() => {
-    function onKeyPress(evt: any) {
+    function onKeyPress(evt: KeyboardEvent) {
       if (evt.key === 'Escape') {
         onClose();
       }

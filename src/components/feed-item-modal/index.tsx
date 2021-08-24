@@ -11,7 +11,7 @@ type Props = {
 }
 
 function FeedItemModal({ onClose }: Props) {
-  const { params } = useRouteMatch<any>();
+  const { params } = useRouteMatch<{ id: string }>();
   const orderId = params.id;
   const feedItem = useSelector<StoreType, FeedItem | undefined>(
     store => store.feed.feed.find(val => val._id === orderId)

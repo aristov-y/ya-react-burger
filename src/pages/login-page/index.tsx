@@ -10,8 +10,14 @@ interface OwnProps {}
 
 type Props = OwnProps;
 
-const LoginPage: FunctionComponent<Props> = (props: React.PropsWithChildren<Props>) => {
-  const location = useLocation<any>();
+type LocationState = {
+  from: {
+    pathname: string
+  }
+}
+
+const LoginPage: FunctionComponent<Props> = () => {
+  const location = useLocation<LocationState>();
   const dispatch = useDispatch<StoreDispatch>()
   const { name } = useSelector<StoreType, UserInfo>(store => store.auth.user)
   const [email, setEmail] = useState('');
