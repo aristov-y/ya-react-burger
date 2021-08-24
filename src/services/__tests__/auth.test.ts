@@ -119,7 +119,10 @@ describe('Auth slice', () => {
     store.dispatch(setUser({ name: "UserName", email: "email" }));
     testNewUser(store, "UserName", "email");
 
-    await store.dispatch(updateUserAction({}));
+    await store.dispatch(updateUserAction({
+      name: 'UserNew',
+      email: 'user_new@mail.com'
+    }));
 
     testNewUser(store, "UserNew", "user_new@mail.com");
   });

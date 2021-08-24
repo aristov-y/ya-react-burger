@@ -21,6 +21,10 @@ interface OwnProps {
 
 type Props = OwnProps;
 
+function disabledOrderClick() {
+  console.warn('Order click disabled');
+}
+
 const BurgerConstructor: FunctionComponent<Props> = () => {
   const dispatch = useDispatch<StoreDispatch>();
   const history = useHistory();
@@ -55,7 +59,7 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
   };
   const onOrderClick = () => {
     setCODisable(true)
-    if (main.length && bun) {
+    if (main.length || bun) {
       if (!name && !token) {
         history.replace({
           pathname: "/login",
@@ -88,7 +92,7 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
     <div className={ 'mt-25' } style={ { flex: '1', maxWidth: '592px' } } ref={dropSource}>
       <div style={ { display: 'flex', flexDirection: 'column', gap: '10px' } }>
         { bun && (
-          <div className={ styles['burger-constructor-item'] }>
+          <div className={ styles['burger-constructor-item'] } data-cy="constructor-bun-top">
             <ConstructorElement
               type="top" isLocked={ true }
               text={ bun.name + '(верх)' }
@@ -106,7 +110,7 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
           }
         </div>
         { bun && (
-          <div className={ styles['burger-constructor-item'] }>
+          <div className={ styles['burger-constructor-item'] } data-cy="constructor-bun-bottom">
             <ConstructorElement
               type="bottom"
               isLocked={ true }
@@ -115,7 +119,10 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
           </div>
         ) }
       </div>
-      <div className={ classnames('mt-10', styles['burger-constructor-checkout']) }>
+      <div
+        className={ classnames('mt-10', styles['burger-constructor-checkout']) }
+        data-cy="checkout-block"
+      >
         <span className="text text_type_digits-medium mr-10">
           { price }
           <CurrencyIcon type={ 'primary' }/>
@@ -123,7 +130,7 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
         <Button
           type="primary"
           size="medium"
-          onClick={coDisable ? () => {} : onOrderClick}
+          onClick={coDisable ? disabledOrderClick : onOrderClick}
         >
           Оформить заказ
         </Button>

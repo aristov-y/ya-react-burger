@@ -48,6 +48,7 @@ const BurgerIngredient: FunctionComponent<Props> = ({ item, onClick, count = 0, 
       className={ classnames(styles['burger-ingredient'], 'mt-2') }
       onClick={ onClick }
       ref={drag}
+      data-cy={item.type}
     >
       <img className={ 'ml-4 mr-4' } alt={ name } src={ img } onClick={onImageClickInternal}/>
       <div className="mt-1">

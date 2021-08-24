@@ -14,7 +14,14 @@ const loadOrders = createAsyncThunk(
 const orders = createSlice({
   name: 'orders',
   initialState: defaultState,
-  reducers: {},
+  reducers: {
+    // only test purposes
+    resetState: (state) => {
+      state.orders = [];
+      state.loading = false;
+      state.hasError = false;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loadOrders.pending, (state) => {
