@@ -50,7 +50,7 @@ function FeedItemIngredients({ ingredients }: Props) {
   return (<div className={styles.Ingredients}>
     {
       items.map((item) => (
-        <div className={styles.Ingredient}>
+        <div key={item.id} className={styles.Ingredient}>
           <div className={styles.IngredientImage}>
             <img src={item.image} alt={item.name} />
           </div>

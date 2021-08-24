@@ -44,11 +44,11 @@ const BurgerConstructor: FunctionComponent<Props> = () => {
   }, [main, bun]);
   const [,drop] = useDrop({
     accept: 'ingredient',
-  })
+  }, []);
   const [,dropSource] = useDrop({
     accept: 'source',
     drop: () => ({name: 'constructor'}),
-  })
+  }, [])
   const onCloseOrder = () => {
     setShowOrder(false);
     dispatch(clearIngredients());

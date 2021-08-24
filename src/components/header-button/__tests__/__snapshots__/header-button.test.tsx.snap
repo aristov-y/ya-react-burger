@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderButton should render 1`] = `
+<div
+  data-id="NavLink"
+>
+  <div
+    data-id="Button"
+  >
+    Icon:BURGER
+    <span
+      className="text ml-2 text_type_main-default ButtonText"
+      style={
+        Object {
+          "verticalAlign": "super",
+        }
+      }
+    >
+      ButtonText
+    </span>
+  </div>
+</div>
+`;
+
+exports[`HeaderButton should render 2`] = `
+<div
+  data-id="NavLink"
+>
+  <div
+    data-id="Button"
+  >
+    Icon:PROFILE
+    <span
+      className="text ml-2 text_type_main-default ButtonText"
+      style={
+        Object {
+          "verticalAlign": "super",
+        }
+      }
+    >
+      Text
+    </span>
+  </div>
+</div>
+`;

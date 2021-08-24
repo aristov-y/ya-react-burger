@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`burger-constructor should render 1`] = `
+<div
+  className="mt-25"
+  style={
+    Object {
+      "flex": "1",
+      "maxWidth": "592px",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "10px",
+      }
+    }
+  >
+    <div
+      className="burger-constructor-item"
+    >
+      ConstructorElement
+    </div>
+    <div
+      className="burger-constructor-scroller"
+    >
+      BurgerConstructorItem
+    </div>
+    <div
+      className="burger-constructor-item"
+    >
+      ConstructorElement
+    </div>
+  </div>
+  <div
+    className="mt-10 burger-constructor-checkout"
+  >
+    <span
+      className="text text_type_digits-medium mr-10"
+    >
+      6
+      CurrencyIcon
+    </span>
+    Button
+  </div>
+</div>
+`;

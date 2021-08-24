@@ -33,7 +33,7 @@ const BurgerIngredient: FunctionComponent<Props> = ({ item, onClick, count = 0, 
         onClick && onClick();
       }
     }
-  })
+  }, [onClick, item._id])
   return (
     <div
       className={ classnames(styles['burger-ingredient'], 'mt-2') }

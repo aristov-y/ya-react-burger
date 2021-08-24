@@ -22,7 +22,9 @@ const BurgerIngredients: FunctionComponent<Props> = ({
   const history = useHistory();
   const scrollerRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch<StoreDispatch>();
-  const ingredients = useSelector<StoreType, Ingredient[]>(state => state.ingredients.ingredients);
+  const { ingredients } = useSelector<StoreType, StoreType['ingredients']>(
+    state => state.ingredients
+  );
   const bunRef = useRef<HTMLDivElement>(null);
   const sauceRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);

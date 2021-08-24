@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { FeedItem } from '../../utils/orders';
 import styles from './feed-list-item.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';

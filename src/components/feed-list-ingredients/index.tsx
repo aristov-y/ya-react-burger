@@ -11,7 +11,7 @@ export default function FeedListIngredients({ ingredients }: Props) {
   ingredients.forEach((val) => unique.add(val));
   const uniqueIngredients = Array.from(unique);
   const length = uniqueIngredients.length;
-  const overLength = length - 5;
+  const overLength = length - 6;
   return (
     <div className={styles.Ingredients}>
       {
