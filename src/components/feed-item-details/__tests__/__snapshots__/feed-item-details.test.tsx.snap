@@ -25,7 +25,7 @@ exports[`FeedItemDetails should render 1`] = `
     <span
       className="text_color_inactive"
     >
-      01.01.2020, 00:00:00
+      2019-12-31T19:00:00.000Z
     </span>
     <span
       className="text_type_digits-default"
@@ -62,7 +62,7 @@ exports[`FeedItemDetails should render 2`] = `
     <span
       className="text_color_inactive"
     >
-      02.01.2020, 00:00:00
+      2020-01-01T19:00:00.000Z
     </span>
     <span
       className="text_type_digits-default"

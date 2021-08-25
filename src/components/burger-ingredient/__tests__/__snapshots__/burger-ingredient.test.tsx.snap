@@ -3,6 +3,7 @@
 exports[`burger-ingredient should render 1`] = `
 <div
   className="burger-ingredient mt-2"
+  data-cy="main"
   onClick={[MockFunction]}
 >
   <img

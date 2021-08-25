@@ -38,4 +38,17 @@ class LocalStorageMock implements Storage {
   }
 }
 
-global.localStorage = new LocalStorageMock;
+global.localStorage = new LocalStorageMock();
+
+// eslint-disable-next-line no-extend-native
+Date.prototype.toLocaleTimeString = function toLocaleTimeString() {
+  return this.toISOString();
+};
+// eslint-disable-next-line no-extend-native
+Date.prototype.toLocaleString = function toLocaleString() {
+  return this.toISOString();
+};
+// eslint-disable-next-line no-extend-native
+Date.prototype.toLocaleDateString = function toLocaleDateString() {
+  return this.toISOString();
+};
