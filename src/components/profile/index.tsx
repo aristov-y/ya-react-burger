@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { logoutAction } from '../../services/auth';
 import { StoreDispatch } from '../../services/store';
 import styles from './profile.module.css';
@@ -12,10 +12,15 @@ interface OwnProps {
 type Props = OwnProps;
 
 function Profile({ children, mainBlockClassName }: React.PropsWithChildren<Props>) {
+  const history = useHistory();
   const dispatch = useDispatch<StoreDispatch>();
   const onLogoutClick = useCallback(() => {
-    dispatch(logoutAction())
-  }, [dispatch]);
+    dispatch(logoutAction()).then(() => {
+      history.replace({
+        pathname: "/login"
+      });
+    });
+  }, [dispatch, history]);
   return (
     <div className={styles.ProfilePage}>
       <div className={styles.ProfilePage_Menu}>

@@ -23,8 +23,6 @@ import { loadFeed } from '../../services/feed';
 import FeedItemModal from '../feed-item-modal';
 import OrderModal from '../order-modal';
 import { loadOrders } from '../../services/orders';
-import { getCookie } from '../../utils/cookies';
-import { WS_CONNECTION_START } from '../../services/action-types';
 
 type LocationBasic = ReturnType<typeof useLocation>
 
@@ -47,12 +45,6 @@ function App() {
   const onModalClose = () => {
     history.replace(background);
   }
-  const token = getCookie('token');
-  useEffect(() => {
-    if (token) {
-      dispatch({ type: WS_CONNECTION_START })
-    }
-  }, [dispatch, token]);
   return (
     <div className="App text text_type_main-default">
       <AppHeader />

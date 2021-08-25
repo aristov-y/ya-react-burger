@@ -7,8 +7,6 @@ import { ingredients, loadIngredients, setIngredients, ingredientsState } from '
 import { constructor, constructorState } from './constructor';
 import { socketMiddleware } from './middleware/socketMiddleware';
 
-const wsUrl = `${process.env.REACT_APP_WS_DOMAIN}/orders`
-
 const {
   clearIngredients,
   reorderIngredient,
@@ -31,7 +29,7 @@ const store = configureStore({
     ingredients: ingredientsState
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat([thunk, socketMiddleware(wsUrl)]),
+    getDefaultMiddleware().concat([thunk, socketMiddleware()]),
   devTools: process.env.NODE_ENV !== 'production'
 })
 

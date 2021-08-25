@@ -20,6 +20,20 @@ const orders = createSlice({
       state.orders = [];
       state.loading = false;
       state.hasError = false;
+    },
+    updateOrdersAction: (state, action) => {
+      const old: FeedItem[] = [...state.orders];
+      const newOrders = action.payload.orders;
+      newOrders.forEach((val: FeedItem) => {
+        const id = val._id;
+        const idx = old.findIndex(e => e._id === id);
+        if (idx === -1) {
+          old.splice(0,0, val);
+        } else {
+          old.splice(idx, 1, { ...val });
+        }
+      });
+      state.orders = old;
     }
   },
   extraReducers: (builder) => {
@@ -40,7 +54,14 @@ const orders = createSlice({
   }
 });
 
+const {
+  resetState,
+  updateOrdersAction
+} = orders.actions;
+
 export {
   orders,
-  loadOrders
+  loadOrders,
+  resetState,
+  updateOrdersAction
 }
