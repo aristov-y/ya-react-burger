@@ -7,11 +7,16 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { getCookie } from '../../utils/cookies';
 import { WS_CONNECTION_CLOSE, WS_CONNECTION_START } from '../../services/action-types';
 import { useOrdersSelector } from '../../services/selectors';
+import { loadOrders } from '../../services/orders';
 
 const wsUrl = `${process.env.REACT_APP_WS_DOMAIN}/orders`
 
 function OrdersPage() {
   const dispatch = useStoreDispatch();
+  useEffect(() => {
+    dispatch(loadOrders());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const history = useHistory();
   const location = useLocation();
   const orders = useOrdersSelector();
