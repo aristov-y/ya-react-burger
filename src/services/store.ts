@@ -6,23 +6,6 @@ import { orders } from './orders';
 import { ingredients, loadIngredients, setIngredients, ingredientsState } from './ingredients';
 import { constructor, constructorState } from './constructor';
 import { socketMiddleware } from './middleware/socketMiddleware';
-import {
-  WS_CONNECTION_CLOSED,
-  WS_CONNECTION_ERROR,
-  WS_CONNECTION_START,
-  WS_CONNECTION_SUCCESS,
-  WS_GET_MESSAGE,
-  WS_SEND_MESSAGE
-} from './action-types';
-
-const wsActions = {
-  wsInit: WS_CONNECTION_START,
-  wsSendMessage: WS_SEND_MESSAGE,
-  onOpen: WS_CONNECTION_SUCCESS,
-  onClose: WS_CONNECTION_CLOSED,
-  onError: WS_CONNECTION_ERROR,
-  onMessage: WS_GET_MESSAGE
-};
 
 const wsUrl = `${process.env.REACT_APP_WS_DOMAIN}/orders`
 
@@ -48,7 +31,7 @@ const store = configureStore({
     ingredients: ingredientsState
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat([thunk, socketMiddleware(wsUrl, wsActions)]),
+    getDefaultMiddleware().concat([thunk, socketMiddleware(wsUrl)]),
   devTools: process.env.NODE_ENV !== 'production'
 })
 
