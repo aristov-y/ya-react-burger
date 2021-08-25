@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react';
 import styles from './feed-list-item.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
-import { StoreType } from '../../services/store';
 import FeedListIngredients from '../feed-list-ingredients';
+import { useIngredientsSelector } from '../../services/selectors';
 
 
 type Props = {
@@ -15,9 +14,7 @@ type Props = {
 }
 
 export default function FeedListItem({ number, name, ingredients, createdAt, onClick }: Props) {
-  const { ingredients: ingredientInfos } = useSelector<StoreType, StoreType['ingredients']>(
-    store => store.ingredients
-  );
+  const ingredientInfos = useIngredientsSelector();
   const idText = `${number}`.padStart(6, '0');
   const date = useMemo(() => {
     if (createdAt) {

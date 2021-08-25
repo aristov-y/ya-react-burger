@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
 import Profile from '../../components/profile';
 import FeedListItem from '../../components/feed-list-item';
-import { useDispatch, useSelector } from 'react-redux';
-import { StoreDispatch, StoreType } from '../../services/store';
+import { useStoreDispatch } from '../../services/store';
 import styles from './orders-page.module.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import { getCookie } from '../../utils/cookies';
 import { WS_CONNECTION_CLOSE, WS_CONNECTION_START } from '../../services/action-types';
+import { useOrdersSelector } from '../../services/selectors';
 
 const wsUrl = `${process.env.REACT_APP_WS_DOMAIN}/orders`
 
 function OrdersPage() {
-  const dispatch = useDispatch<StoreDispatch>();
+  const dispatch = useStoreDispatch();
   const history = useHistory();
   const location = useLocation();
-  const { orders } = useSelector<StoreType, StoreType['orders']>(store => store.orders);
+  const orders = useOrdersSelector();
   const token = getCookie('token');
   useEffect(() => {
     if (token) {
@@ -30,7 +30,7 @@ function OrdersPage() {
         })
       }
     }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
   const onShowDetails = (id: string) => {
     history.push({

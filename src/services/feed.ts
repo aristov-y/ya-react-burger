@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchFeed, FeedItem } from '../utils/orders';
+import mergeOrders from '../utils/mergeOrders';
 
 const defaultState = {
   feed: [] as FeedItem[],
@@ -22,18 +23,12 @@ const feed = createSlice({
       state.feed = action.payload;
     }),
     updateFeed: (state, action) => {
-      const old: FeedItem[] = [...state.feed];
       const newOrders = action.payload.orders;
-      newOrders.forEach((val: FeedItem) => {
-        const id = val._id;
-        const idx = old.findIndex(e => e._id === id);
-        if (idx === -1) {
-          old.splice(0,0, val);
-        } else {
-          old.splice(idx, 1, { ...val });
-        }
-      });
-      state.feed = old;
+      if (Array.isArray(newOrders)) {
+        state.feed = mergeOrders(newOrders, state.feed);
+      } else {
+        console.error('Incorrect payload: ', action.payload);
+      }
       state.total = action.payload.total;
       state.totalToday = action.payload.totalToday;
     }

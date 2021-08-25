@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { StoreType } from '../../services/store';
 import styles from './feed-item-details.module.css';
 import FeedItemIngredients from '../feed-item-ingredients';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useIngredientsSelector } from '../../services/selectors';
 
 type Props = {
   name: string;
@@ -13,9 +12,7 @@ type Props = {
 }
 
 function useIngredientsTotalPrice(ingredients: string[] = []) {
-  const {
-    ingredients: mainIngredients
-  } = useSelector<StoreType, StoreType['ingredients']>(store => store.ingredients);
+  const mainIngredients = useIngredientsSelector();
   return useMemo(() => {
     const prices = mainIngredients.reduce<Record<string, number>>((previousValue, currentValue) => {
       previousValue[currentValue._id] = currentValue.price;

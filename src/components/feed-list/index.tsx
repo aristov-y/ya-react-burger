@@ -1,10 +1,9 @@
 import React, { useCallback } from 'react';
 import FeedListItem from '../feed-list-item';
 import styles from './feed-list.module.css';
-import { useSelector } from 'react-redux';
-import { StoreType } from '../../services/store';
 import classNames from 'classnames';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useFeedSelector } from '../../services/selectors';
 
 type Props = {
   className?: string;
@@ -13,7 +12,7 @@ type Props = {
 export default function FeedList({ className }: Props) {
   const location = useLocation();
   const history = useHistory();
-  const { feed } = useSelector<StoreType, StoreType["feed"]>(state => state.feed);
+  const feed = useFeedSelector();
   const onShowDetails = useCallback((id: string) => {
     history.push({
       pathname: `/feed/${id}`,

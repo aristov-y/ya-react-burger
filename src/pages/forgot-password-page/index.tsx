@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Button, Input, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import styles from './forgot-password-page.module.css'
@@ -8,7 +8,7 @@ interface OwnProps {}
 
 type Props = OwnProps;
 
-const ForgotPasswordPage: FunctionComponent<Props> = (props) => {
+const ForgotPasswordPage: FC<Props> = (props) => {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const onResetClick: React.FormEventHandler<HTMLFormElement> = (ev) => {

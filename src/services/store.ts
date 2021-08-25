@@ -6,6 +6,7 @@ import { orders } from './orders';
 import { ingredients, loadIngredients, setIngredients, ingredientsState } from './ingredients';
 import { constructor, constructorState } from './constructor';
 import { socketMiddleware } from './middleware/socketMiddleware';
+import { useDispatch } from 'react-redux';
 
 const {
   clearIngredients,
@@ -36,6 +37,8 @@ const store = configureStore({
 type StoreType = ReturnType<typeof store.getState>
 type StoreDispatch = typeof store.dispatch;
 
+const useStoreDispatch = () => useDispatch<StoreDispatch>()
+
 export type {
   StoreType,
   StoreDispatch
@@ -47,7 +50,8 @@ export {
   clearIngredients,
   reorderIngredient,
   addIngredient,
-  removeIngredient
+  removeIngredient,
+  useStoreDispatch
 }
 
 export default store;

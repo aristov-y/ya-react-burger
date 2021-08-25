@@ -2,9 +2,8 @@ import React, { FunctionComponent, useState } from 'react';
 import { Button, Input, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './register-page.module.css';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { registerAction } from '../../services/auth';
-import { StoreDispatch } from '../../services/store';
+import { useStoreDispatch } from '../../services/store';
 
 interface OwnProps {}
 
@@ -12,7 +11,7 @@ type Props = OwnProps;
 
 const RegisterPage: FunctionComponent<Props> = (props) => {
   const history = useHistory();
-  const dispatch = useDispatch<StoreDispatch>();
+  const dispatch = useStoreDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

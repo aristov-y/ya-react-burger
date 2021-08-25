@@ -1,13 +1,13 @@
 import classnames from 'classnames';
 import React, { FunctionComponent, useCallback, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientsSection from './burger-ingredients-section';
 import { Ingredient } from '../../utils/ingredients';
-import { loadIngredients, StoreDispatch, StoreType } from '../../services/store';
+import { loadIngredients, useStoreDispatch } from '../../services/store';
 import useEventListener from '../../hooks/use-event-listener';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useIngredientsSelector } from '../../services/selectors';
 
 interface OwnProps {
   className?: string
@@ -21,10 +21,8 @@ const BurgerIngredients: FunctionComponent<Props> = ({
   const location = useLocation();
   const history = useHistory();
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const dispatch = useDispatch<StoreDispatch>();
-  const { ingredients } = useSelector<StoreType, StoreType['ingredients']>(
-    state => state.ingredients
-  );
+  const dispatch = useStoreDispatch();
+  const ingredients = useIngredientsSelector();
   const bunRef = useRef<HTMLDivElement>(null);
   const sauceRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);

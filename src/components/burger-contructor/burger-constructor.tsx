@@ -7,13 +7,12 @@ import {
 import classnames from 'classnames';
 import styles from './burger-constructor.module.css'
 import OrderDetails from '../order-details/order-details';
-import { clearIngredients, StoreDispatch, StoreType } from '../../services/store';
+import { clearIngredients, useStoreDispatch } from '../../services/store';
 import getOrder from '../../utils/get-order';
-import { useDispatch, useSelector } from 'react-redux';
 import BurgerConstructorItem from '../burger-constructor-element/burger-constructor-item';
 import { useDrop } from 'react-dnd';
 import { useHistory, useLocation } from 'react-router-dom';
-import { UserInfo } from '../../services/auth';
+import { useConstructorSelector, useUserSelector } from '../../services/selectors';
 
 interface OwnProps {
 
@@ -26,12 +25,12 @@ function disabledOrderClick() {
 }
 
 const BurgerConstructor: FunctionComponent<Props> = () => {
-  const dispatch = useDispatch<StoreDispatch>();
+  const dispatch = useStoreDispatch();
   const history = useHistory();
   const location = useLocation();
-  const { name } = useSelector<StoreType, UserInfo>(store => store.auth.user);
+  const { name } = useUserSelector();
   const token = localStorage.getItem('token');
-  const { main, bun } = useSelector<StoreType, StoreType["constructor"]>(state => state.constructor)
+  const { main, bun } = useConstructorSelector();
   const [coDisable, setCODisable] = useState(false);
   const [orderNum, setOrderNum] = useState(0);
   const [showOrder, setShowOrder] = useState(false);

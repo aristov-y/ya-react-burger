@@ -2,9 +2,8 @@ import React, { useRef } from 'react';
 import classnames from 'classnames';
 import styles from './burger-constructor-item.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { removeIngredient, reorderIngredient } from '../../services/store';
+import { removeIngredient, reorderIngredient, useStoreDispatch } from '../../services/store';
 import { Ingredient } from '../../utils/ingredients';
-import { useDispatch } from 'react-redux';
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
 
 interface OwnProps {
@@ -21,7 +20,7 @@ type TDragObject = {
 
 const BurgerConstructorItem = ({ item, index }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
-  const dispatch = useDispatch();
+  const dispatch = useStoreDispatch();
 
   const [,dropRef] = useDrop<TDragObject, never, never>({
     accept: 'ingredient',

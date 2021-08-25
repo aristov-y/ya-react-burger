@@ -1,10 +1,11 @@
 import React, { FunctionComponent, useCallback, useEffect, useState } from 'react';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { StoreDispatch, StoreType } from '../../services/store';
-import { getUserAction, updateUserAction, UserInfo } from '../../services/auth';
+import { StoreType, useStoreDispatch } from '../../services/store';
+import { getUserAction, updateUserAction } from '../../services/auth';
 import Profile from '../../components/profile';
 import styles from './profile-page.module.css'
+import { useHistory, useLocation } from 'react-router-dom';
+import { useStoreSelector } from '../../services/selectors';
 
 interface OwnProps {}
 
@@ -13,15 +14,29 @@ type Props = OwnProps;
 type IconType = 'EditIcon' | 'CloseIcon';
 
 const ProfilePage: FunctionComponent<Props> = (props) => {
-  const dispatch = useDispatch<StoreDispatch>();
+  const history = useHistory();
+  const location = useLocation();
+  const dispatch = useStoreDispatch();
   useEffect(() => {
     dispatch(getUserAction());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const {
-    name: userName,
-    email: userEmail
-  } = useSelector<StoreType, UserInfo>(store => store.auth.user);
+    user: {
+      name: userName,
+      email: userEmail
+    },
+    error
+  } = useStoreSelector<StoreType['auth']>(store => store.auth);
+  if (error) {
+    history.replace({
+      pathname: `/login`,
+      state: {
+        order: true,
+        background: location
+      }
+    });
+  }
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState('');

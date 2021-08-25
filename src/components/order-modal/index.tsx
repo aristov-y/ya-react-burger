@@ -1,10 +1,9 @@
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { StoreType } from '../../services/store';
 import { FeedItem } from '../../utils/orders';
 import Modal from '../modal/modal';
 import FeedItemDetails from '../feed-item-details';
+import { useStoreSelector } from '../../services/selectors';
 
 type Props = {
   onClose: () => void;
@@ -13,7 +12,7 @@ type Props = {
 function OrderModal({ onClose }: Props) {
   const { params } = useRouteMatch<{ id: string }>();
   const orderId = params.id;
-  const orderItem = useSelector<StoreType, FeedItem | undefined>(
+  const orderItem = useStoreSelector<FeedItem | undefined>(
     store => store.orders.orders.find(val => val._id === orderId)
   );
   if (orderItem) {

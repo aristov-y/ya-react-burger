@@ -1,8 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { StoreType } from '../../services/store';
 import { Ingredient } from '../../utils/ingredients';
 import styles from './feed-list-ingredient.module.css'
+import { useStoreSelector } from '../../services/selectors';
 
 type Props = {
   id: string;
@@ -11,7 +10,7 @@ type Props = {
 }
 
 function FeedListIngredient({ id, overLength = 0, zIndex = 0 }: Props) {
-  const ingredient = useSelector<StoreType, Ingredient | undefined>((store) => {
+  const ingredient = useStoreSelector<Ingredient | undefined>((store) => {
     return store.ingredients.ingredients.find((val) => val._id === id)
   });
   if (ingredient) {

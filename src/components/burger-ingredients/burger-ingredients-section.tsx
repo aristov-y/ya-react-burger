@@ -2,8 +2,8 @@ import React, { FunctionComponent, useCallback } from 'react';
 import classnames from 'classnames';
 import { Ingredient } from '../../utils/ingredients';
 import BurgerIngredient from '../burger-ingredient';
-import { useDispatch, useSelector } from 'react-redux';
-import { addIngredient, StoreDispatch, StoreType } from '../../services/store';
+import { addIngredient, useStoreDispatch } from '../../services/store';
+import { useConstructorSelector } from '../../services/selectors';
 
 interface OwnProps {
   titleClassName?: string;
@@ -23,10 +23,8 @@ const BurgerIngredientsSection: FunctionComponent<Props> = ({
   titleRef,
   onShowDetails
 }) => {
-  const dispatch = useDispatch<StoreDispatch>();
-  const {
-    main, bun
-  } = useSelector<StoreType, StoreType["constructor"]>(store => store.constructor);
+  const dispatch = useStoreDispatch();
+  const { main, bun } = useConstructorSelector();
   const getCount = useCallback((id: string) => {
     if (bun && bun._id === id) {
       return 2;

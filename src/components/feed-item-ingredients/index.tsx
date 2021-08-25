@@ -1,8 +1,7 @@
 import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import { StoreType } from '../../services/store';
 import styles from './feed-item-ingredients.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useIngredientsSelector } from '../../services/selectors';
 
 type Props = {
   ingredients: string[]
@@ -17,9 +16,7 @@ interface IngredientInfo {
 }
 
 function FeedItemIngredients({ ingredients }: Props) {
-  const {
-    ingredients: mainIngredients
-  } = useSelector<StoreType, StoreType['ingredients']>(state => state.ingredients)
+  const mainIngredients = useIngredientsSelector()
   const filteredIngredients = useMemo(() => {
     return ingredients.reduce<Record<string, number>>((previousValue, currentValue) => {
       if (previousValue[currentValue]) {

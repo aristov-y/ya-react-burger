@@ -5,15 +5,13 @@ import MainContainer from '../main-container';
 import BurgerIngredients from '../burger-ingredients';
 import BurgerConstructor from '../burger-contructor';
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadIngredients, StoreDispatch, StoreType } from '../../services/store';
+import { loadIngredients, useStoreDispatch } from '../../services/store';
 import { getUserAction } from '../../services/auth';
 import ProtectedUnauthorizedRoute from '../protected-unauthorized-route';
 import ProtectedRoute from '../protected-route';
 import ForgotPasswordPage from '../../pages/forgot-password-page';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { Ingredient } from '../../utils/ingredients';
 import ProtectedUnauthorizedRouteWithReset from '../protected-unauthorized-route-with-reset';
 import {
   LoginPage, RegisterPage, ResetPasswordPage, ProfilePage,
@@ -23,6 +21,7 @@ import { loadFeed } from '../../services/feed';
 import FeedItemModal from '../feed-item-modal';
 import OrderModal from '../order-modal';
 import { loadOrders } from '../../services/orders';
+import { useIngredientsSelector } from '../../services/selectors';
 
 type LocationBasic = ReturnType<typeof useLocation>
 
@@ -31,11 +30,11 @@ type LocationState = {
 }
 
 function App() {
-  const dispatch = useDispatch<StoreDispatch>();
+  const dispatch = useStoreDispatch();
   const location = useLocation<LocationState>();
   const history = useHistory();
   const background = history.action === 'PUSH' && location.state && location.state.background;
-  const ingredients = useSelector<StoreType, Ingredient[]>(store => store.ingredients.ingredients);
+  const ingredients = useIngredientsSelector();
   useEffect(() => {
     dispatch(getUserAction());
     dispatch(loadIngredients());
