@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`burger-constructor-item should render 1`] = `
+<div
+  className="burger-constructor-item burger-constructor-item__draggable"
+>
+  DragIcon
+  ConstructorElement
+</div>
+`;

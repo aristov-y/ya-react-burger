@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedItemIngredients should render 1`] = `
+<div
+  className="Ingredients"
+>
+  <div
+    className="Ingredient"
+  >
+    <div
+      className="IngredientImage"
+    >
+      <img
+        alt="Sauce 02"
+      />
+    </div>
+    <div
+      className="text_type_main-default"
+    >
+      Sauce 02
+    </div>
+    <div
+      className="text text_type_digits-default IngredientPrice"
+    >
+      3
+       x 
+      104
+      CurrencyIcon
+    </div>
+  </div>
+  <div
+    className="Ingredient"
+  >
+    <div
+      className="IngredientImage"
+    >
+      <img
+        alt="Main 01"
+      />
+    </div>
+    <div
+      className="text_type_main-default"
+    >
+      Main 01
+    </div>
+    <div
+      className="text text_type_digits-default IngredientPrice"
+    >
+      2
+       x 
+      100
+      CurrencyIcon
+    </div>
+  </div>
+  <div
+    className="Ingredient"
+  >
+    <div
+      className="IngredientImage"
+    >
+      <img
+        alt="Main 02"
+      />
+    </div>
+    <div
+      className="text_type_main-default"
+    >
+      Main 02
+    </div>
+    <div
+      className="text text_type_digits-default IngredientPrice"
+    >
+      1
+       x 
+      102
+      CurrencyIcon
+    </div>
+  </div>
+</div>
+`;

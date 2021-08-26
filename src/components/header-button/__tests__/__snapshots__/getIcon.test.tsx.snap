@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getIcon should render 1`] = `"BurgerIcon"`;
+
+exports[`getIcon should render 2`] = `"BurgerIcon"`;
+
+exports[`getIcon should render 3`] = `"ListIcon"`;
+
+exports[`getIcon should render 4`] = `"ProfileIcon"`;
+
+exports[`getIcon should render 5`] = `null`;

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`burger-ingredients should render 1`] = `
+<div
+  className="test-class burger-ingredients mt-10"
+>
+  <span
+    className="text text_type_main-medium"
+  >
+    Соберите бургер
+  </span>
+  <div
+    className="mt-5"
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    Tab
+    Tab
+    Tab
+  </div>
+  <div
+    className="mt-10 burger-ingredients-scroller"
+  >
+    BurgerIngredientsSection
+    BurgerIngredientsSection
+    BurgerIngredientsSection
+  </div>
+</div>
+`;

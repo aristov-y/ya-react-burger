@@ -2,18 +2,24 @@ import React, { FunctionComponent, useState } from 'react';
 import { Button, Input, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login-page.module.css';
 import { Link, Redirect, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { StoreDispatch, StoreType } from '../../services/store';
-import { loginAction, UserInfo } from '../../services/auth';
+import { useStoreDispatch } from '../../services/store';
+import { loginAction } from '../../services/auth';
+import { useUserSelector } from '../../services/selectors';
 
 interface OwnProps {}
 
 type Props = OwnProps;
 
-const LoginPage: FunctionComponent<Props> = (props: React.PropsWithChildren<Props>) => {
-  const location = useLocation<any>();
-  const dispatch = useDispatch<StoreDispatch>()
-  const { name } = useSelector<StoreType, UserInfo>(store => store.auth.user)
+type LocationState = {
+  from: {
+    pathname: string
+  }
+}
+
+const LoginPage: FunctionComponent<Props> = () => {
+  const location = useLocation<LocationState>();
+  const dispatch = useStoreDispatch()
+  const { name } = useUserSelector();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);

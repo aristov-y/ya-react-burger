@@ -14,6 +14,15 @@ interface OwnProps {
 
 type Props = OwnProps;
 
+type TDragItem = {
+  payload: string
+}
+
+type TDropObject = {
+  dropEffect: string;
+  name: string;
+}
+
 const BurgerIngredient: FunctionComponent<Props> = ({ item, onClick, count = 0, onImageClick }) => {
   const { price, name, image_large: img } = item;
   const onImageClickInternal: React.MouseEventHandler = (evt) => {
@@ -21,24 +30,25 @@ const BurgerIngredient: FunctionComponent<Props> = ({ item, onClick, count = 0, 
     evt.preventDefault();
     onImageClick && onImageClick();
   }
-  const [,drag] = useDrag({
+  const [,drag] = useDrag<TDragItem, TDropObject, never>({
     type: 'source',
     item: {
       payload: item._id
     },
-    end: (draggedItem: any, monitor) => {
-      const dropResult = monitor.getDropResult<any>();
+    end: (draggedItem, monitor) => {
+      const dropResult = monitor.getDropResult();
 
-      if (dropResult) {
+      if (dropResult && dropResult.name === 'constructor') {
         onClick && onClick();
       }
     }
-  })
+  }, [onClick, item._id])
   return (
     <div
       className={ classnames(styles['burger-ingredient'], 'mt-2') }
       onClick={ onClick }
       ref={drag}
+      data-cy={item.type}
     >
       <img className={ 'ml-4 mr-4' } alt={ name } src={ img } onClick={onImageClickInternal}/>
       <div className="mt-1">

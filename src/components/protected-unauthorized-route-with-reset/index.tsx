@@ -1,11 +1,9 @@
 import React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { StoreType } from '../../services/store';
-import { UserInfo } from '../../services/auth';
+import { useUserSelector } from '../../services/selectors';
 
 function ProtectedUnauthorizedRouteWithReset({ children, ...rest }: RouteProps) {
-  const { name } = useSelector<StoreType, UserInfo>(store => store.auth.user);
+  const { name } = useUserSelector();
   const withReset = localStorage.getItem('resetPassword');
 
   return (

@@ -1,12 +1,10 @@
 import { Redirect, Route, RouteProps } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { StoreType } from '../../services/store';
-import { UserInfo } from '../../services/auth';
+import { useUserSelector } from '../../services/selectors';
 
 
 
 function ProtectedRoute({ children, ...rest }: RouteProps) {
-  const { name } = useSelector<StoreType, UserInfo>(store => store.auth.user);
+  const { name } = useUserSelector();
   const token = localStorage.getItem('token');
   if (!name && !token) {
     return (

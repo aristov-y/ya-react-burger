@@ -1,0 +1,10 @@
+.FeedListPage {
+    padding: 0 340px;
+}
+
+.FeedListPageContent {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 40px;
+}

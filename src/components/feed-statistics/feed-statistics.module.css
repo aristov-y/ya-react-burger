@@ -1,0 +1,23 @@
+.FeedStatistic {
+    width: 584px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.FeedStatisticOrders {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 36px;
+}
+
+.FeedStatisticTotal {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.FeedStatisticTotal > :global(.text) {
+    text-shadow: 0 0 16px rgba(51, 51, 255, 0.25), 0 0 8px rgba(51, 51, 255, 0.25), 0 4px 32px rgba(51, 51, 255, 0.5);
+}

@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedListIngredient should render 1`] = `
+<div
+  className="Ingredient"
+>
+  <div
+    className="IngredientImage"
+    style={
+      Object {
+        "zIndex": 0,
+      }
+    }
+  >
+    <img
+      alt="Name"
+      src="ImageSource"
+    />
+  </div>
+</div>
+`;
+
+exports[`FeedListIngredient should render 2`] = `null`;
+
+exports[`FeedListIngredient should render 3`] = `
+<div
+  className="Ingredient"
+>
+  <div
+    className="IngredientImage"
+    style={
+      Object {
+        "zIndex": 2,
+      }
+    }
+  >
+    <img
+      alt="Name"
+      src="ImageSource"
+    />
+  </div>
+</div>
+`;
+
+exports[`FeedListIngredient should render 4`] = `
+<div
+  className="Ingredient"
+>
+  <div
+    className="IngredientImage"
+    style={
+      Object {
+        "zIndex": 2,
+      }
+    }
+  >
+    <img
+      alt="Name"
+      src="ImageSource"
+    />
+    <span
+      className="text_type_digits-default OverLength"
+    >
+      +
+      3
+    </span>
+  </div>
+</div>
+`;

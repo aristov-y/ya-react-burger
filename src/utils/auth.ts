@@ -1,4 +1,5 @@
 import { deleteCookie, getCookie, setCookie } from './cookies';
+import { TSimpleUserInfo } from '../types';
 
 interface RegisterResponse {
   success: boolean,
@@ -157,7 +158,7 @@ function userInfoRequest(): Promise<UserResponse> {
     })
 }
 
-function updateUserInfo(user: any): Promise<UserResponse> {
+function updateUserInfo(user: TSimpleUserInfo): Promise<UserResponse> {
   return fetch('https://norma.nomoreparties.space/api/auth/user', {
     method: 'PATCH',
     headers: {

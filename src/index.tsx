@@ -7,7 +7,10 @@ import store from './services/store'
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 import { BrowserRouter } from 'react-router-dom';
+import moment from 'moment/moment';
+import 'moment/locale/ru';
 
+moment.locale('ru');
 
 ReactDOM.render(
   <React.StrictMode>

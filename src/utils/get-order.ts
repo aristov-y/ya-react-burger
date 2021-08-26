@@ -1,3 +1,5 @@
+import { getCookie } from './cookies';
+
 interface Order {
   name: string,
   order: {
@@ -7,10 +9,15 @@ interface Order {
 }
 
 function getOrder(ingredientIds: string[]): Promise<Order> {
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json'
+  };
+  const token = getCookie('token');
+  if (token) {
+    headers['Authorization'] = token;
+  }
   return fetch('https://norma.nomoreparties.space/api/orders', {
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers,
     method: 'POST',
     body: JSON.stringify({ingredients: ingredientIds})
   })

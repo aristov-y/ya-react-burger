@@ -1,0 +1,42 @@
+.FeedListItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+    width: 524px;
+    background-color: #1c1c21;
+    border-radius: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+    margin-bottom: 24px;
+}
+
+.FeedListItem:last-child {
+    margin-bottom: 0;
+}
+
+.FeedListItemId {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.FeedListItemIngredients {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.FeedListItemPrice {
+    font-size: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.FeedListItemPrice > svg {
+    margin-left: 6px;
+}
+

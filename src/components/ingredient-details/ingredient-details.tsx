@@ -8,7 +8,7 @@ type Props = {
 }
 
 function IngredientDetails({ items }: Props) {
-  const { params } = useRouteMatch<any>();
+  const { params } = useRouteMatch<{ id: string }>();
   const itemId = params.id;
   const item = useMemo(() => {
     return items.find((val) => val._id === itemId);

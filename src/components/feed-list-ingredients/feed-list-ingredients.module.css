@@ -1,0 +1,4 @@
+.Ingredients {
+    display: flex;
+    flex-direction: row;
+}
