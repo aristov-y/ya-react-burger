@@ -1,0 +1,47 @@
+.burger-constructor-scroller {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    max-height: calc(100vh - 500px);
+}
+
+.burger-constructor-scroller::-webkit-scrollbar {
+    width: 12px;
+}
+.burger-constructor-scroller::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+.burger-constructor-scroller::-webkit-scrollbar-thumb {
+    background: #8585AD;
+    border: 3px solid #2F2F37;
+    border-radius: 6px;
+}
+
+.burger-constructor-item {
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+}
+
+.burger-constructor-item__draggable {
+    margin-left: 0;
+}
+
+.burger-constructor-item > :global(.constructor-element) {
+    margin-left: 10px;
+    width: 100%;
+}
+:global(.constructor-element__text) {
+    flex: 1;
+}
+
+
+.burger-constructor-checkout {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.burger-constructor-checkout > :global(.text) > svg {
+    margin-left: 10px;
+}

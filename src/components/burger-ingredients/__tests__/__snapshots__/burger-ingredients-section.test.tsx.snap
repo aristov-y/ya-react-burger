@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`burger-ingredients-section should render 1`] = `
+Array [
+  <div>
+    <span
+      className="text text_type_main-medium"
+    >
+      Title
+    </span>
+  </div>,
+  <div
+    className="mt-10 pt-4 pl-4"
+  >
+    BurgerIngredients
+    BurgerIngredients
+    BurgerIngredients
+    BurgerIngredients
+  </div>,
+]
+`;

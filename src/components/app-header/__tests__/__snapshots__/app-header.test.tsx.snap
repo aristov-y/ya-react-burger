@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app-header should render 1`] = `
+<header
+  className="app-header"
+>
+  <nav
+    className="app-header-nav"
+  >
+    HeaderButton
+    HeaderButton
+  </nav>
+  <div
+    data-itemid="Link"
+  >
+    Logo
+  </div>
+  <div
+    className="app-header-profile-wrapper"
+  >
+    HeaderButton
+  </div>
+</header>
+`;

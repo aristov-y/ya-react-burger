@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedStatisticOrders should render 1`] = `
+<div
+  className="FeedStatistic text"
+>
+  <div
+    className="FeedStatisticOrders"
+  >
+    <div
+      className="Orders"
+    >
+      <span
+        className="text text_type_main-medium"
+      >
+        Готовы:
+      </span>
+      <div
+        className="OrdersList OrdersCompleted"
+      >
+        <span
+          className="text text_type_digits-default"
+        >
+          000003
+        </span>
+        <span
+          className="text text_type_digits-default"
+        >
+          000001
+        </span>
+      </div>
+    </div>
+    <div
+      className="Orders"
+    >
+      <span
+        className="text text_type_main-medium"
+      >
+        В работе:
+      </span>
+      <div
+        className="OrdersList"
+      >
+        <span
+          className="text text_type_digits-default"
+        >
+          000002
+        </span>
+        <span
+          className="text text_type_digits-default"
+        >
+          000004
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    className="FeedStatisticTotal"
+  >
+    <span
+      className="text_type_main-medium"
+    >
+      Выполнено за все время:
+    </span>
+    <span
+      className="text text_type_digits-large"
+    >
+      2002
+    </span>
+  </div>
+  <div
+    className="FeedStatisticTotal"
+  >
+    <span
+      className="text_type_main-medium"
+    >
+      Выполнено за сегодня:
+    </span>
+    <span
+      className="text text_type_digits-large"
+    >
+      34
+    </span>
+  </div>
+</div>
+`;

@@ -1,0 +1,15 @@
+{
+    "extends": [
+        "react-app",
+        "react-app/jest"
+    ],
+    "overrides": [
+        {
+            "files": ["**/*.ts?(x)"]
+        }
+    ],
+    "rules": {
+        "max-len": ["error", 100],
+        "@typescript-eslint/no-explicit-any": "warn"
+    }
+}

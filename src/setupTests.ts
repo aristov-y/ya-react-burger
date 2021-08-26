@@ -3,3 +3,52 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+class LocalStorageMock implements Storage {
+  private store: any;
+  constructor() {
+    this.store = {};
+  }
+
+  get length() {
+    return Object.keys(this.store).length;
+  }
+
+  key(n: number) {
+    const keys = Object.keys(this.store);
+    const key = keys[n];
+    if (key) {
+      return this.store[key];
+    }
+  }
+
+  clear() {
+    this.store = {};
+  }
+
+  getItem(key) {
+    return this.store[key] || null;
+  }
+
+  setItem(key, value) {
+    this.store[key] = String(value);
+  }
+
+  removeItem(key) {
+    delete this.store[key];
+  }
+}
+
+global.localStorage = new LocalStorageMock();
+
+// eslint-disable-next-line no-extend-native
+Date.prototype.toLocaleTimeString = function toLocaleTimeString() {
+  return this.toISOString();
+};
+// eslint-disable-next-line no-extend-native
+Date.prototype.toLocaleString = function toLocaleString() {
+  return this.toISOString();
+};
+// eslint-disable-next-line no-extend-native
+Date.prototype.toLocaleDateString = function toLocaleDateString() {
+  return this.toISOString();
+};

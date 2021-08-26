@@ -1,0 +1,17 @@
+.burger-constructor-item {
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+}
+
+.burger-constructor-item__draggable {
+    margin-left: 0;
+}
+
+.burger-constructor-item > :global(.constructor-element) {
+    margin-left: 10px;
+    width: 100%;
+}
+:global(.constructor-element__text) {
+    flex: 1;
+}

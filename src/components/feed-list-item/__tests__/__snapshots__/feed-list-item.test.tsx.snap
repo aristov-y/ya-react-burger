@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedListItem should render 1`] = `
+<div
+  className="FeedListItem"
+  onClick={[MockFunction]}
+>
+  <div
+    className="FeedListItemId"
+  >
+    <span>
+      #
+      000123
+    </span>
+    <span
+      className="text_color_inactive"
+    >
+      2020-01-01T05:01:12.000Z
+    </span>
+  </div>
+  <div
+    className="text_type_main-medium"
+  >
+    Name
+  </div>
+  <div
+    className="FeedListItemIngredients"
+  >
+    FeedListIngredients
+    <div
+      className="FeedListItemPrice"
+    >
+      24
+      CurrencyIcon
+    </div>
+  </div>
+</div>
+`;

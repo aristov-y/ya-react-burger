@@ -1,0 +1,8 @@
+.ButtonText {
+    color: var(--text-primary-color);
+}
+
+.ActiveLink .ButtonText {
+    color: #8585ad;
+    color: var(--text-inactive-color)
+}

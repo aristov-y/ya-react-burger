@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedStatisticOrders should render 1`] = `
+<div>
+  <span
+    className="text text_type_main-medium"
+  >
+    Title
+  </span>
+  <div
+    className="OrdersList"
+  >
+    <span
+      className="text text_type_digits-default"
+    >
+      000002
+    </span>
+    <span
+      className="text text_type_digits-default"
+    >
+      000005
+    </span>
+  </div>
+</div>
+`;
+
+exports[`FeedStatisticOrders should render 2`] = `
+<div>
+  <span
+    className="text text_type_main-medium"
+  >
+    Title
+  </span>
+  <div
+    className="OrdersList OrdersCompleted"
+  >
+    <span
+      className="text text_type_digits-default"
+    >
+      000003
+    </span>
+    <span
+      className="text text_type_digits-default"
+    >
+      000004
+    </span>
+  </div>
+</div>
+`;
